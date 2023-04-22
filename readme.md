@@ -1,3 +1,6 @@
+> **Warning**
+> This command line client is work in progress. Feel free to help to "finish" it. Some of the commands may not work as intended it the moment.
+
 # Friends of WP - WordPress Developer CLI
 
 This command line tool helps WordPress developers with their daily work. It is maintained by the [Friends of WP](https://www.friendsofwp.com) and published unter the MIT license.
