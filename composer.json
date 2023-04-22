@@ -1,0 +1,12 @@
+{
+    "autoload": {
+        "psr-4": {
+            "FriendsOfWp\\DeveloperCli\\": "src/"
+        }
+    },
+
+    "require": {
+        "symfony/console": "^6.2",
+        "friends-of-wp/pluginretriever": "^1.0"
+    }
+}
