@@ -1,0 +1,9 @@
+{
+  "main": "bin/wp-dev.php",
+  "blacklist": [
+    "docs",
+    ".gitignore",
+    "readme.md",
+    ".github"
+  ]
+}
