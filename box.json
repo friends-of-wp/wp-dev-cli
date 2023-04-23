@@ -3,6 +3,7 @@
   "blacklist": [
     "docs",
     ".gitignore",
-    "readme.md"
+    "readme.md",
+    ".github"
   ]
 }
