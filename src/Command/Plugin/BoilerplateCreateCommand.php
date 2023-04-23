@@ -3,86 +3,99 @@
 namespace FriendsOfWp\DeveloperCli\Command\Plugin;
 
 use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
-use FriendsOfWp\DeveloperCli\Boilerplate\Steps\CopyTemplatesStep;
-use FriendsOfWp\DeveloperCli\Boilerplate\Steps\CreatingSettingsConfigStep;
-use FriendsOfWp\DeveloperCli\Boilerplate\Steps\RenameMasterFileStep;
-use FriendsOfWp\DeveloperCli\Boilerplate\Steps\ReplacingPlaceholdersSteps;
-use Symfony\Component\Console\Command\Command;
+use FriendsOfWp\DeveloperCli\Boilerplate\Step\Exception\UnableToCreateException;
+use FriendsOfWp\DeveloperCli\Command\Command;
+use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Yaml\Yaml;
 
 class BoilerplateCreateCommand extends Command
 {
     protected static $defaultName = 'plugin:boilerplate:create';
     protected static $defaultDescription = 'Create an OOP plugin boilerplate with all dependencies.';
 
+    private string $configFile;
+
+    /**
+     * @var \FriendsOfWp\DeveloperCli\Boilerplate\Step\Step[]
+     */
+    private array $steps = [];
+
     protected function configure()
     {
         $this->addArgument('outputDir', InputArgument::REQUIRED, 'The output directory for the plugin.');
+        $this->addOption('configFile', 'c', InputOption::VALUE_OPTIONAL, 'The configuration file.', false);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $helper = $this->getHelper('question');
+        $this->initSteps($input->getOption('configFile'));
 
-        $output->writeln('');
-        $output->writeln('<error>                                                                           </error>');
-        $output->writeln('<error>  This command is not finished yet. The created plugin will not work yet.  </error>');
-        $output->writeln('<error>                                                                           </error>');
-        $output->writeln('');
+        $this->writeWarning($output);
 
-        /**
-         * @todo the name must not be empty
-         * @todo check if similar name is already existing (use plugin db for that)
-         */
-        $pluginName = $helper->ask($input, $output, new Question('Please enter the name of the plugin (e.g. Acme Security): ', ''));
+        $config = new Configuration();
 
-        /**
-         * @todo ask for: version number, author
-         * @todo ask for license
-         * @todo ask for composer
-         * @todo ask for settings (this should be reusable or stand-alone)
-         */
-        $pluginDescription = $helper->ask($input, $output, new Question('Please enter the description of the plugin: ', ''));
-        $outputDir = $input->getArgument('outputDir');
-        $pluginVersion = '1.0.0';
+        $this->ask($input, $output, $config);
 
-        $config = new Configuration(
-            $pluginName,
-            $pluginDescription,
-            $pluginVersion,
-            $outputDir
-        );
-
-        $output->writeln('');
-        $output->writeln('');
-
-        $output->writeln("<info>Starting plugin creation.</info>\n");
+        $output->writeln("\n<info>Starting plugin creation.</info>\n");
 
         $this->runSteps($output, $config);
 
-        $output->writeln("\n\n<info>FINISHED</info>. Created new plugin boilerplate <comment>" . $pluginName . "</comment> in directory <comment>" . $outputDir . '</comment>');
-        $output->writeln('');
+        $output->writeln("\n\n<info>FINISHED</info>. Created new plugin boilerplate <comment>" . $config->getPluginName() . "</comment> in directory <comment>" . $config->getOutputDir() . "</comment>\n");
 
-        return Command::SUCCESS;
+        return SymfonyCommand::SUCCESS;
+    }
+
+    /**
+     * Aks the user for the plugin configuration parameters.
+     */
+    private function ask(InputInterface $input, OutputInterface $output, Configuration &$configuration)
+    {
+        $questionHelper = $this->getHelper('question');
+
+        foreach ($this->steps as $step) {
+            try {
+                $step->ask($configuration, $input, $output, $questionHelper);
+            } catch (UnableToCreateException $e) {
+                $message = "Unable to create boilerplate. " . $e->getMessage();
+                $spaces = str_repeat(' ', strlen($message) + 4);
+
+                $output->writeln("");
+                $output->writeln('<error>' . $spaces . "</error>");
+                $output->writeln("<error>  " . $message . "  </error>");
+                $output->writeln('<error>' . $spaces . "</error>");
+                $output->writeln("");
+
+                die;
+            }
+        }
+    }
+
+    private function initSteps(string $configFile)
+    {
+        if (!$configFile) {
+            $configFile = __DIR__ . '/../../../config/boilerplate/default.yml';
+        }
+
+        $config = Yaml::parse(file_get_contents($configFile));
+
+        foreach ($config['steps'] as $stepName) {
+            $this->steps[] = new $stepName;
+        }
     }
 
     private function runSteps(OutputInterface $output, Configuration $configuration): void
     {
-        $steps = [
-            new CopyTemplatesStep(),
-            new ReplacingPlaceholdersSteps(),
-            new RenameMasterFileStep(),
-            new CreatingSettingsConfigStep()
-        ];
-
         $stepCount = 0;
 
-        foreach ($steps as $step) {
+        $numberOfSteps = count($this->steps);
+
+        foreach ($this->steps as $step) {
             $stepCount++;
-            $output->writeln('Step ' . $stepCount . '/' . count($steps) . ': ' . $step->run($configuration));
+            $output->writeln('Step ' . $stepCount . '/' . $numberOfSteps . ': ' . $step->run($configuration));
         }
     }
 }

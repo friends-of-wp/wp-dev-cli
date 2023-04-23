@@ -10,7 +10,7 @@
  *
  * @link              https://github.com/friends-of-wp-hosting/WPSecurityScore
  * @since             0.0.1
- * @package           WPSecurityScore
+ * @package           ##PLUGIN_NORMALIZED_NAME##
  *
  * @wordpress-plugin
  * Plugin Name:       ##PLUGIN_NAME##
