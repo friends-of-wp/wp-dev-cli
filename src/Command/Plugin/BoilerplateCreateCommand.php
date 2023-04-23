@@ -5,18 +5,23 @@ namespace FriendsOfWp\DeveloperCli\Command\Plugin;
 use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
 use FriendsOfWp\DeveloperCli\Boilerplate\Steps\CopyTemplatesStep;
 use FriendsOfWp\DeveloperCli\Boilerplate\Steps\CreatingSettingsConfigStep;
+use FriendsOfWp\DeveloperCli\Boilerplate\Steps\InitializeStep;
 use FriendsOfWp\DeveloperCli\Boilerplate\Steps\RenameMasterFileStep;
 use FriendsOfWp\DeveloperCli\Boilerplate\Steps\ReplacingPlaceholdersSteps;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Question\Question;
 
 class BoilerplateCreateCommand extends Command
 {
     protected static $defaultName = 'plugin:boilerplate:create';
     protected static $defaultDescription = 'Create an OOP plugin boilerplate with all dependencies.';
+
+    /**
+     * @var \FriendsOfWp\DeveloperCli\Boilerplate\Steps\Step[]
+     */
+    private array $steps = [];
 
     protected function configure()
     {
@@ -25,7 +30,7 @@ class BoilerplateCreateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $helper = $this->getHelper('question');
+        $this->initSteps();
 
         $output->writeln('');
         $output->writeln('<error>                                                                           </error>');
@@ -33,28 +38,8 @@ class BoilerplateCreateCommand extends Command
         $output->writeln('<error>                                                                           </error>');
         $output->writeln('');
 
-        /**
-         * @todo the name must not be empty
-         * @todo check if similar name is already existing (use plugin db for that)
-         */
-        $pluginName = $helper->ask($input, $output, new Question('Please enter the name of the plugin (e.g. Acme Security): ', ''));
-
-        /**
-         * @todo ask for: version number, author
-         * @todo ask for license
-         * @todo ask for composer
-         * @todo ask for settings (this should be reusable or stand-alone)
-         */
-        $pluginDescription = $helper->ask($input, $output, new Question('Please enter the description of the plugin: ', ''));
-        $outputDir = $input->getArgument('outputDir');
-        $pluginVersion = '1.0.0';
-
-        $config = new Configuration(
-            $pluginName,
-            $pluginDescription,
-            $pluginVersion,
-            $outputDir
-        );
+        $config = new Configuration();
+        $this->ask($input, $output, $config);
 
         $output->writeln('');
         $output->writeln('');
@@ -63,26 +48,41 @@ class BoilerplateCreateCommand extends Command
 
         $this->runSteps($output, $config);
 
-        $output->writeln("\n\n<info>FINISHED</info>. Created new plugin boilerplate <comment>" . $pluginName . "</comment> in directory <comment>" . $outputDir . '</comment>');
+        $output->writeln("\n\n<info>FINISHED</info>. Created new plugin boilerplate <comment>" . $config->getPluginName() . "</comment> in directory <comment>" . $config->getOutputDir() . '</comment>');
         $output->writeln('');
 
         return Command::SUCCESS;
     }
 
-    private function runSteps(OutputInterface $output, Configuration $configuration): void
+    private function ask(InputInterface $input, OutputInterface $output, Configuration &$configuration)
     {
-        $steps = [
+        $questionHelper = $this->getHelper('question');
+
+        foreach ($this->steps as $step) {
+            $step->ask($configuration, $input, $output, $questionHelper);
+        }
+    }
+
+    private function initSteps()
+    {
+        $this->steps = [
+            new InitializeStep(),
             new CopyTemplatesStep(),
             new ReplacingPlaceholdersSteps(),
             new RenameMasterFileStep(),
             new CreatingSettingsConfigStep()
         ];
+    }
 
+    private function runSteps(OutputInterface $output, Configuration $configuration): void
+    {
         $stepCount = 0;
 
-        foreach ($steps as $step) {
+        $numberOfSteps = count($this->steps);
+
+        foreach ($this->steps as $step) {
             $stepCount++;
-            $output->writeln('Step ' . $stepCount . '/' . count($steps) . ': ' . $step->run($configuration));
+            $output->writeln('Step ' . $stepCount . '/' . $numberOfSteps . ': ' . $step->run($configuration));
         }
     }
 }

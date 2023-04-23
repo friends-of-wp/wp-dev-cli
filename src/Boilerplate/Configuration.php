@@ -4,25 +4,40 @@ namespace FriendsOfWp\DeveloperCli\Boilerplate;
 
 class Configuration
 {
-    private string $pluginName;
-    private string $pluginDescription;
-    private string $pluginVersion;
-    private string $outputDir;
+    private ?string $pluginName;
+    private ?string $pluginDescription;
+    private ?string $pluginVersion;
+    private ?string $outputDir;
 
     /**
      * @param string $pluginName
-     * @param string $pluginDescription
-     * @param string $pluginVersion
      */
-    public function __construct(
-        string $pluginName,
-        string $pluginDescription,
-        string $pluginVersion,
-        string $outputDir)
+    public function setPluginName(string $pluginName): void
     {
         $this->pluginName = $pluginName;
+    }
+
+    /**
+     * @param string $pluginDescription
+     */
+    public function setPluginDescription(string $pluginDescription): void
+    {
         $this->pluginDescription = $pluginDescription;
+    }
+
+    /**
+     * @param string $pluginVersion
+     */
+    public function setPluginVersion(string $pluginVersion): void
+    {
         $this->pluginVersion = $pluginVersion;
+    }
+
+    /**
+     * @param string $outputDir
+     */
+    public function setOutputDir(string $outputDir): void
+    {
         $this->outputDir = $outputDir;
     }
 

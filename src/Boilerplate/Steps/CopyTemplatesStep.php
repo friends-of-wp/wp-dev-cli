@@ -4,7 +4,7 @@ namespace FriendsOfWp\DeveloperCli\Boilerplate\Steps;
 
 use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
 
-class CopyTemplatesStep implements Step
+class CopyTemplatesStep extends SimpleStep
 {
     public function run(Configuration $configuration): string
     {

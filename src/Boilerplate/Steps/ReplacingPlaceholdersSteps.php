@@ -4,7 +4,7 @@ namespace FriendsOfWp\DeveloperCli\Boilerplate\Steps;
 
 use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
 
-class ReplacingPlaceholdersSteps implements Step
+class ReplacingPlaceholdersSteps extends SimpleStep
 {
     private array $files = [
         'src/plugin-boilerplate.php',

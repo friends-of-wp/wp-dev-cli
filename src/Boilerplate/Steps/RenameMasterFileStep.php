@@ -4,7 +4,7 @@ namespace FriendsOfWp\DeveloperCli\Boilerplate\Steps;
 
 use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
 
-class RenameMasterFileStep implements Step
+class RenameMasterFileStep extends SimpleStep
 {
     public function run(Configuration $configuration): string
     {
