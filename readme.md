@@ -1,9 +1,6 @@
-> **Warning**
-> This command line client is work in progress. Feel free to help to "finish" it. Some of the commands may not work as intended it the moment.
+# Friends of WP - WordPress Developer CLI
 
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/friends-of-wp/wp-dev-cli/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/friends-of-wp/wp-dev-cli/?branch=develop)
-
-# Friends of WP - WordPress Developer CLI
 
 This command line tool helps WordPress developers with their daily work. It is maintained by the [Friends of WP](https://www.friendsofwp.com) and published unter the MIT license.
 
