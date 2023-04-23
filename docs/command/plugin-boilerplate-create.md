@@ -27,3 +27,11 @@ steps:
   - \FriendsOfWp\DeveloperCli\Boilerplate\Step\RenamePluginDirStep
 
 ```
+
+## Todos
+
+- Create settings configuration ([RFC-FWP-01](https://github.com/friends-of-wp/rfc-fwp-01-settings))
+- Create empty plugin admin pages
+- Add author to plugin questions
+- Extend config file to prefill "questions" (like author).
+

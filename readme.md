@@ -33,6 +33,7 @@ Now you are ready to use our WordPress CLI for Developers.
 
 This CLI tool will always be work in progress. We have a lot of ideas that can be implemented. But it's open source ... feel free to add your own functionality.
 
-- The CLI should be packed as `wp-dev.phar` via GitHub actions. This should be triggered when creating a new GitHub release. 
-- An installation how-to should be added
-- `plugin:boilerplate:create` - Create settings configuration ([RFC-FWP-01](https://github.com/friends-of-wp/rfc-fwp-01-settings))
+- Increase test coverage
+- Use PHPStan
+- Add "how to create a new release"
+- Auto-update the phat file
