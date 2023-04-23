@@ -8,8 +8,8 @@ class RenameMasterFileStep extends SimpleStep
 {
     public function run(Configuration $configuration): string
     {
-        $from = $configuration->getOutputDir() . '/src/plugin-boilerplate.php';
-        $to = $configuration->getOutputDir() . '/src/' . $configuration->getNormalizedPluginName() . '.php';
+        $from = $configuration->getOutputDir() . '/plugin/plugin-boilerplate.php';
+        $to = $configuration->getOutputDir() . '/plugin/' . $configuration->getNormalizedPluginName() . '.php';
 
         rename($from, $to);
 

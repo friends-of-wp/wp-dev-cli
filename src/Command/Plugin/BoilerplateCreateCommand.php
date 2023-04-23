@@ -3,22 +3,21 @@
 namespace FriendsOfWp\DeveloperCli\Command\Plugin;
 
 use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
-use FriendsOfWp\DeveloperCli\Boilerplate\Step\CopyTemplatesStep;
-use FriendsOfWp\DeveloperCli\Boilerplate\Step\CreatingSettingsConfigStep;
 use FriendsOfWp\DeveloperCli\Boilerplate\Step\Exception\UnableToCreateException;
-use FriendsOfWp\DeveloperCli\Boilerplate\Step\InitializeStep;
-use FriendsOfWp\DeveloperCli\Boilerplate\Step\RenameMasterFileStep;
-use FriendsOfWp\DeveloperCli\Boilerplate\Step\ReplacingPlaceholdersSteps;
 use FriendsOfWp\DeveloperCli\Command\Command;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Yaml\Yaml;
 
 class BoilerplateCreateCommand extends Command
 {
     protected static $defaultName = 'plugin:boilerplate:create';
     protected static $defaultDescription = 'Create an OOP plugin boilerplate with all dependencies.';
+
+    private string $configFile;
 
     /**
      * @var \FriendsOfWp\DeveloperCli\Boilerplate\Step\Step[]
@@ -28,11 +27,12 @@ class BoilerplateCreateCommand extends Command
     protected function configure()
     {
         $this->addArgument('outputDir', InputArgument::REQUIRED, 'The output directory for the plugin.');
+        $this->addOption('configFile', 'c', InputOption::VALUE_OPTIONAL, 'The configuration file.', false);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->initSteps();
+        $this->initSteps($input->getOption('configFile'));
 
         $this->writeWarning($output);
 
@@ -49,6 +49,9 @@ class BoilerplateCreateCommand extends Command
         return SymfonyCommand::SUCCESS;
     }
 
+    /**
+     * Aks the user for the plugin configuration parameters.
+     */
     private function ask(InputInterface $input, OutputInterface $output, Configuration &$configuration)
     {
         $questionHelper = $this->getHelper('question');
@@ -71,15 +74,17 @@ class BoilerplateCreateCommand extends Command
         }
     }
 
-    private function initSteps()
+    private function initSteps(string $configFile)
     {
-        $this->steps = [
-            new InitializeStep(),
-            new CopyTemplatesStep(),
-            new ReplacingPlaceholdersSteps(),
-            new RenameMasterFileStep(),
-            // new CreatingSettingsConfigStep()
-        ];
+        if (!$configFile) {
+            $configFile = __DIR__ . '/../../../config/boilerplate/default.yml';
+        }
+
+        $config = Yaml::parse(file_get_contents($configFile));
+
+        foreach ($config['steps'] as $stepName) {
+            $this->steps[] = new $stepName;
+        }
     }
 
     private function runSteps(OutputInterface $output, Configuration $configuration): void

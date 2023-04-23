@@ -9,7 +9,7 @@ use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
  *
  * @author nils.langner@startwind.io
  */
-class ReplacingPlaceholdersSteps extends SimpleStep
+class ReplacingPlaceholdersStep extends SimpleStep
 {
     const LIMITERS = '##';
 
@@ -19,7 +19,7 @@ class ReplacingPlaceholdersSteps extends SimpleStep
      * @var string[]
      */
     private array $files = [
-        'src/plugin-boilerplate.php',
+        'plugin/plugin-boilerplate.php',
         'readme.md'
     ];
 

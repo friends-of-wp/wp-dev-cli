@@ -10,7 +10,7 @@ This command line tool helps WordPress developers with their daily work. It is m
 - **`wordpress:directory:export`** - This command exports the information for all plugins from the wordpress.org plugin directory into a CSV file. 
 
 
-- **`plugin:boilerplate:create`** - This function creates a new plugin boilerplate with all needed dependency. Additional steps can easily be defined. 
+- **`plugin:boilerplate:create`** - This function creates a new plugin boilerplate with all needed dependency. Additional steps can easily be defined. [More information](docs/command/plugin-boilerplate-create.md).
 
 ## Ideas
 

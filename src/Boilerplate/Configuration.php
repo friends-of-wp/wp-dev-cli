@@ -92,6 +92,6 @@ class Configuration
 
     public function getNormalizedPluginName(): string
     {
-        return str_replace(' ', '', $this->getPluginName());
+        return str_replace(' ', '-', strtolower($this->getPluginName()));
     }
 }
