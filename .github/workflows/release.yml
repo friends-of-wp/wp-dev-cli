@@ -33,9 +33,13 @@ jobs:
         run: |
           php /tmp/box.phar compile
 
-      - name: Run box builder
+      - name: Move phar file to temp directory
         run: |
           mv bin/wp-dev.phar /tmp
+
+      - name: Show content of /tmp
+        run: |
+          lsr /tmp         
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
