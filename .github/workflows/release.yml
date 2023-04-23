@@ -39,7 +39,7 @@ jobs:
 
       - name: Show content of /tmp
         run: |
-          lsr /tmp         
+          ls /tmp         
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
