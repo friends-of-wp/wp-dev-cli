@@ -29,7 +29,7 @@ class ReplacingPlaceholdersStep extends SimpleStep
             $this->replaceInFile($file, $configuration);
         }
 
-        return "Replacing all variables in the boilerplate directory";
+        return "Replaced all variables in the boilerplate directory";
     }
 
     private function replaceInFile(string $file, Configuration $configuration)

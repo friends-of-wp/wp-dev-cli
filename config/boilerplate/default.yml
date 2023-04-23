@@ -3,3 +3,4 @@ steps:
   - \FriendsOfWp\DeveloperCli\Boilerplate\Step\CopyTemplatesStep
   - \FriendsOfWp\DeveloperCli\Boilerplate\Step\ReplacingPlaceholdersStep
   - \FriendsOfWp\DeveloperCli\Boilerplate\Step\RenameMasterFileStep
+  - \FriendsOfWp\DeveloperCli\Boilerplate\Step\RenamePluginDirStep

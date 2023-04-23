@@ -65,6 +65,6 @@ class InitializeStep extends SimpleStep
 
     public function run(Configuration $configuration): string
     {
-        return "Initializing plugin configuration";
+        return "Initialized plugin configuration";
     }
 }
