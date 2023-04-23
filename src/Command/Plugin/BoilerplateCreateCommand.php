@@ -8,7 +8,8 @@ use FriendsOfWp\DeveloperCli\Boilerplate\Steps\CreatingSettingsConfigStep;
 use FriendsOfWp\DeveloperCli\Boilerplate\Steps\InitializeStep;
 use FriendsOfWp\DeveloperCli\Boilerplate\Steps\RenameMasterFileStep;
 use FriendsOfWp\DeveloperCli\Boilerplate\Steps\ReplacingPlaceholdersSteps;
-use Symfony\Component\Console\Command\Command;
+use FriendsOfWp\DeveloperCli\Command\Command;
+use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -32,26 +33,19 @@ class BoilerplateCreateCommand extends Command
     {
         $this->initSteps();
 
-        $output->writeln('');
-        $output->writeln('<error>                                                                           </error>');
-        $output->writeln('<error>  This command is not finished yet. The created plugin will not work yet.  </error>');
-        $output->writeln('<error>                                                                           </error>');
-        $output->writeln('');
+        $this->writeWarning($output);
 
         $config = new Configuration();
+
         $this->ask($input, $output, $config);
 
-        $output->writeln('');
-        $output->writeln('');
-
-        $output->writeln("<info>Starting plugin creation.</info>\n");
+        $output->writeln("\n<info>Starting plugin creation.</info>\n");
 
         $this->runSteps($output, $config);
 
-        $output->writeln("\n\n<info>FINISHED</info>. Created new plugin boilerplate <comment>" . $config->getPluginName() . "</comment> in directory <comment>" . $config->getOutputDir() . '</comment>');
-        $output->writeln('');
+        $output->writeln("\n\n<info>FINISHED</info>. Created new plugin boilerplate <comment>" . $config->getPluginName() . "</comment> in directory <comment>" . $config->getOutputDir() . "</comment>\n");
 
-        return Command::SUCCESS;
+        return SymfonyCommand::SUCCESS;
     }
 
     private function ask(InputInterface $input, OutputInterface $output, Configuration &$configuration)
