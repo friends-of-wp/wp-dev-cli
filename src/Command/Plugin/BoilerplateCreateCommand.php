@@ -78,7 +78,7 @@ class BoilerplateCreateCommand extends Command
             new CopyTemplatesStep(),
             new ReplacingPlaceholdersSteps(),
             new RenameMasterFileStep(),
-            new CreatingSettingsConfigStep()
+            // new CreatingSettingsConfigStep()
         ];
     }
 

@@ -4,10 +4,27 @@ namespace FriendsOfWp\DeveloperCli\Boilerplate;
 
 class Configuration
 {
-    private ?string $pluginName;
-    private ?string $pluginDescription;
-    private ?string $pluginVersion;
-    private ?string $outputDir;
+    private string $pluginName;
+    private string $pluginSlug;
+    private string $pluginDescription;
+    private string $pluginVersion;
+    private string $outputDir;
+
+    /**
+     * @return string
+     */
+    public function getPluginSlug(): string
+    {
+        return $this->pluginSlug;
+    }
+
+    /**
+     * @param string $pluginSlug
+     */
+    public function setPluginSlug(string $pluginSlug): void
+    {
+        $this->pluginSlug = $pluginSlug;
+    }
 
     /**
      * @param string $pluginName
@@ -71,5 +88,10 @@ class Configuration
     public function getOutputDir(): string
     {
         return $this->outputDir;
+    }
+
+    public function getNormalizedPluginName(): string
+    {
+        return str_replace(' ', '', $this->getPluginName());
     }
 }

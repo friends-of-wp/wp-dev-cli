@@ -4,10 +4,20 @@ namespace FriendsOfWp\DeveloperCli\Boilerplate\Step;
 
 use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
 
+/**
+ * This step replaces all placeholder variables in the plugin destination directory.
+ *
+ * @author nils.langner@startwind.io
+ */
 class ReplacingPlaceholdersSteps extends SimpleStep
 {
     const LIMITERS = '##';
 
+    /**
+     * The files where all placeholders are replaced.
+     *
+     * @var string[]
+     */
     private array $files = [
         'src/plugin-boilerplate.php',
         'readme.md'
@@ -28,6 +38,7 @@ class ReplacingPlaceholdersSteps extends SimpleStep
             'PLUGIN_NAME' => $configuration->getPluginName(),
             'PLUGIN_DESCRIPTION' => $configuration->getPluginDescription(),
             'PLUGIN_VERSION' => $configuration->getPluginVersion(),
+            'PLUGIN_NORMALIZED_NAME' => $configuration->getNormalizedPluginName()
         ];
 
         $filename = $configuration->getOutputDir() . '/' . $file;

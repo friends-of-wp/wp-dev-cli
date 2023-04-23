@@ -13,4 +13,11 @@ abstract class SimpleStep implements Step
     {
 
     }
+
+    protected function warning(OutputInterface $output, string $message)
+    {
+        $output->writeln('');
+        $output->writeln('<bg=yellow>' . $message . '</>');
+        $output->writeln('');
+    }
 }
