@@ -13,6 +13,7 @@ use Symfony\Component\Console\Question\Question;
  *       line parameters.
  *
  * @todo ask for @since. This should always be the newest WordPress version (taken from the WP API).
+ *       This API should also be used to validate the version number.
  */
 class InitializeStep extends SimpleStep
 {
