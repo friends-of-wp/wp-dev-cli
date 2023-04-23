@@ -2,20 +2,42 @@ name: Release new Version
 
 on:
   release:
-    types: [created]
+    types: [ created ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Create PHAR file using box
-        uses: gplanchat/github-action-box@master
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: Upload phar file to release
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          ini-values: phar.readonly=0
+          tools: composer
+          coverage: none
+
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v2
+
+      - name: Download box.phar
+        working-directory: /tmp/
+        run: |
+          wget https://github.com/box-project/box/releases/download/4.3.8/box.phar
+
+      - name: Run box builder
+        run: |
+          php /tmp/box.phar compile
+
+      - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: bin/wp-dev.phar
-          asset_name: ${{ matrix.asset_name }}
-          tag: ${{ github.ref }}
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
+            file: bin/wp-dev.phar
+            asset_name: ${{ matrix.asset_name }}
+            tag: ${{ github.ref }}
