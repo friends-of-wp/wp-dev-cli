@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8cc5eca6500eeb7c0fc3713eab5533cd",
+    "content-hash": "2b06b0388c5c032c3209479adddd59bd",
     "packages": [
         {
             "name": "friends-of-wp/pluginretriever",
-            "version": "1.0.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/friends-of-wp/wp-plugin-directory-exporter.git",
-                "reference": "a530c7276fbb26f4c6aa3253ed25102f8aaa0ec2"
+                "reference": "afb7e395b8c426d248e684d488f693b6816248f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/friends-of-wp/wp-plugin-directory-exporter/zipball/a530c7276fbb26f4c6aa3253ed25102f8aaa0ec2",
-                "reference": "a530c7276fbb26f4c6aa3253ed25102f8aaa0ec2",
+                "url": "https://api.github.com/repos/friends-of-wp/wp-plugin-directory-exporter/zipball/afb7e395b8c426d248e684d488f693b6816248f8",
+                "reference": "afb7e395b8c426d248e684d488f693b6816248f8",
                 "shasum": ""
             },
             "require": {
@@ -33,9 +33,9 @@
             "description": "Small and flexible library to retrieve all plugins from the WordPress plugin directory.",
             "support": {
                 "issues": "https://github.com/friends-of-wp/wp-plugin-directory-exporter/issues",
-                "source": "https://github.com/friends-of-wp/wp-plugin-directory-exporter/tree/1.0.0"
+                "source": "https://github.com/friends-of-wp/wp-plugin-directory-exporter/tree/1.2.0"
             },
-            "time": "2023-04-15T05:59:12+00:00"
+            "time": "2023-04-23T12:16:34+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
