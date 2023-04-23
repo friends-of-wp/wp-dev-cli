@@ -9,10 +9,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+
+      - name: echo release
+        run: echo $RELEASE
+        env:
+          RELEASE: ${{ steps.get_version.outputs.VERSION }}
+
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@master
         with:
-          fetch-depth: 0
+          exclude: "vendor/"
+          find: "##WPDEV_CLI_VERSION##"
+          replace: ${{ steps.get_version.outputs.VERSION }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -44,7 +58,7 @@ jobs:
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
-            repo_token: ${{ secrets.GITHUB_TOKEN }}
+            repo_token: ${{ secrets.REPO_TOKEN }}
             file: /tmp/wp-dev.phar
             asset_name: ${{ matrix.asset_name }}
             tag: ${{ github.ref }}
