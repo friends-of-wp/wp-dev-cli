@@ -13,8 +13,11 @@ php bin/fowp.php plugin:boilerplate:create /path/to/plugin/plugin-name
 It is possible to add individual steps to the boilerplate creation process. This is done via the config yaml file that can be handed over via the CLI parameter `-c`.
 
 ````shell
-php bin/fowp.php plugin:boilerplate:create /path/to/plugin/plugin-name -c my-default-config.yml
+./wp-dev.phar plugin:boilerplate:create /path/to/plugin/plugin-name -c my-default-config.yml
 ````
+
+![CLI Output](../images/boilerplate.png)
+
 
 The config file should have all the steps in there. All those steps will be processes in the order in that list. 
 
