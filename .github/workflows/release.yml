@@ -1,0 +1,21 @@
+name: Release new Version
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create PHAR file using box
+        uses: gplanchat/github-action-box@master
+
+      - name: Upload phar file to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: bin/wp-dev.phar
+          asset_name: ${{ matrix.asset_name }}
+          tag: ${{ github.ref }}
