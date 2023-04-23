@@ -1,6 +1,6 @@
 <?php
 
-namespace FriendsOfWp\DeveloperCli\Boilerplate\Steps;
+namespace FriendsOfWp\DeveloperCli\Boilerplate\Step;
 
 use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
 

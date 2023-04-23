@@ -3,11 +3,12 @@
 namespace FriendsOfWp\DeveloperCli\Command\Plugin;
 
 use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
-use FriendsOfWp\DeveloperCli\Boilerplate\Steps\CopyTemplatesStep;
-use FriendsOfWp\DeveloperCli\Boilerplate\Steps\CreatingSettingsConfigStep;
-use FriendsOfWp\DeveloperCli\Boilerplate\Steps\InitializeStep;
-use FriendsOfWp\DeveloperCli\Boilerplate\Steps\RenameMasterFileStep;
-use FriendsOfWp\DeveloperCli\Boilerplate\Steps\ReplacingPlaceholdersSteps;
+use FriendsOfWp\DeveloperCli\Boilerplate\Step\CopyTemplatesStep;
+use FriendsOfWp\DeveloperCli\Boilerplate\Step\CreatingSettingsConfigStep;
+use FriendsOfWp\DeveloperCli\Boilerplate\Step\Exception\UnableToCreateException;
+use FriendsOfWp\DeveloperCli\Boilerplate\Step\InitializeStep;
+use FriendsOfWp\DeveloperCli\Boilerplate\Step\RenameMasterFileStep;
+use FriendsOfWp\DeveloperCli\Boilerplate\Step\ReplacingPlaceholdersSteps;
 use FriendsOfWp\DeveloperCli\Command\Command;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -20,7 +21,7 @@ class BoilerplateCreateCommand extends Command
     protected static $defaultDescription = 'Create an OOP plugin boilerplate with all dependencies.';
 
     /**
-     * @var \FriendsOfWp\DeveloperCli\Boilerplate\Steps\Step[]
+     * @var \FriendsOfWp\DeveloperCli\Boilerplate\Step\Step[]
      */
     private array $steps = [];
 
@@ -53,7 +54,20 @@ class BoilerplateCreateCommand extends Command
         $questionHelper = $this->getHelper('question');
 
         foreach ($this->steps as $step) {
-            $step->ask($configuration, $input, $output, $questionHelper);
+            try {
+                $step->ask($configuration, $input, $output, $questionHelper);
+            } catch (UnableToCreateException $e) {
+                $message = "Unable to create boilerplate. " . $e->getMessage();
+                $spaces = str_repeat(' ', strlen($message) + 4);
+
+                $output->writeln("");
+                $output->writeln('<error>' . $spaces . "</error>");
+                $output->writeln("<error>  " . $message . "  </error>");
+                $output->writeln('<error>' . $spaces . "</error>");
+                $output->writeln("");
+
+                die;
+            }
         }
     }
 
