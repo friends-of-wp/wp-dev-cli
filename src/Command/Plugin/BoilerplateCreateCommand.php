@@ -11,16 +11,17 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
+use FriendsOfWp\DeveloperCli\Boilerplate\Step\Step;
 
 class BoilerplateCreateCommand extends Command
 {
     protected static $defaultName = 'plugin:boilerplate:create';
     protected static $defaultDescription = 'Create an OOP plugin boilerplate with all dependencies.';
 
-    private string $configFile;
-
     /**
-     * @var \FriendsOfWp\DeveloperCli\Boilerplate\Step\Step[]
+     * A list of steps that will be processed for creating a new plugin.
+     *
+     * @var Step[]
      */
     private array $steps = [];
 
@@ -38,7 +39,7 @@ class BoilerplateCreateCommand extends Command
 
         $this->writeWarning($output);
 
-        $this->ask($input, $output, $config);
+        $this->ask($output);
 
         $output->writeln("\n<info>Starting plugin creation.</info>\n");
 
@@ -52,7 +53,7 @@ class BoilerplateCreateCommand extends Command
     /**
      * Aks the user for the plugin configuration parameters.
      */
-    private function ask(InputInterface $input, OutputInterface $output, Configuration &$configuration)
+    private function ask(OutputInterface $output)
     {
         $questionHelper = $this->getHelper('question');
 
