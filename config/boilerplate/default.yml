@@ -1,4 +1,5 @@
 steps:
+  - \FriendsOfWp\DeveloperCli\Boilerplate\Step\InputValidationStep
   - \FriendsOfWp\DeveloperCli\Boilerplate\Step\InitializeStep
   - \FriendsOfWp\DeveloperCli\Boilerplate\Step\CopyTemplatesStep
   - \FriendsOfWp\DeveloperCli\Boilerplate\Step\PrepareAdminStep

@@ -24,6 +24,9 @@ abstract class SimpleStep implements Step
         $this->output = $output;
     }
 
+    /**
+     * Ask a simple yes/no question.
+     */
     protected function askYesNoQuestion(string $messageWithQuestionmark, QuestionHelper $questionHelper): bool
     {
         $answer = $questionHelper->ask($this->getInput(), $this->getOutput(), new Question($messageWithQuestionmark . ' (yes/no)? '));
@@ -80,5 +83,21 @@ abstract class SimpleStep implements Step
     protected function getOutput(): OutputInterface
     {
         return $this->output;
+    }
+
+    /**
+     * Copy a file and replace placeholders.
+     */
+    protected function enrichedCopy(string $from, string $to, $enrichArray = [])
+    {
+        $fullEnrichArray = $enrichArray;
+
+        $content = file_get_contents($from);
+
+        foreach ($fullEnrichArray as $search => $replacement) {
+            $content = str_replace('##' . $search . '##', $replacement, $content);
+        }
+
+        file_put_contents($to, $content);
     }
 }

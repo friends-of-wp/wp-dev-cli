@@ -15,6 +15,8 @@ use FriendsOfWp\DeveloperCli\Boilerplate\Step\Step;
 
 class BoilerplateCreateCommand extends Command
 {
+    const INPUT_OUTPUT_DIR = 'outputDir';
+
     protected static $defaultName = 'plugin:boilerplate:create';
     protected static $defaultDescription = 'Create an OOP plugin boilerplate with all dependencies.';
 
@@ -27,7 +29,7 @@ class BoilerplateCreateCommand extends Command
 
     protected function configure()
     {
-        $this->addArgument('outputDir', InputArgument::REQUIRED, 'The output directory for the plugin.');
+        $this->addArgument(self::INPUT_OUTPUT_DIR, InputArgument::REQUIRED, 'The output directory for the plugin.');
         $this->addOption('configFile', 'c', InputOption::VALUE_OPTIONAL, 'The configuration file.', false);
     }
 

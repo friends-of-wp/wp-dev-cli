@@ -106,7 +106,9 @@ class Configuration
         $str = lcfirst($this->getPluginName());
         $str = preg_replace("/[A-Z]/", $separator . "$0", $str);
 
-        return str_replace(' ', '-', strtolower($str));
+        $str = str_replace(' ', '-', strtolower($str));
+
+        return str_replace('--', '-', $str);
     }
 
     /**

@@ -10,13 +10,7 @@ class CopyTemplatesStep extends SimpleStep
 {
     public function ask(QuestionHelper $questionHelper): void
     {
-        if (file_exists($this->getConfiguration()->getOutputDir())) {
-            $this->getOutput()->writeln('');
-            $overWrite = $questionHelper->ask($this->getInput(), $this->getOutput(), new Question('The output dir is already existing. Do you want to overwrite it (yes/no)? '));
-            if ($overWrite === 'n' || $overWrite === "no") {
-                throw new UnableToCreateException('Output directory already exists and will not be overwritten.');
-            }
-        }
+
     }
 
     public function run(): string
