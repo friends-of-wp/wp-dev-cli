@@ -36,4 +36,4 @@ This CLI tool will always be work in progress. We have a lot of ideas that can b
 - Increase test coverage
 - Use PHPStan
 - Add "how to create a new release"
-- Auto-update the phat file
+- Auto-update the phar file
