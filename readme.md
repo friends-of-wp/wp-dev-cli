@@ -37,3 +37,4 @@ This CLI tool will always be work in progress. We have a lot of ideas that can b
 - Use PHPStan
 - Add "how to create a new release"
 - Auto-update the phar file
+- Add a "verbose mode"
