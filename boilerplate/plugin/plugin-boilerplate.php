@@ -28,4 +28,9 @@
 if (!defined('WPINC')) die;
 
 include_once ABSPATH . 'wp-admin/includes/plugin.php';
-include_once ABSPATH . 'wp-admin/includes/admin.php';
+
+# INCLUDES
+
+# CONSTANTS
+
+# INCLUDE PAGES START

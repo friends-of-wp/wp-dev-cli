@@ -3,6 +3,7 @@
 namespace FriendsOfWp\DeveloperCli\Boilerplate\Step;
 
 use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
+use FriendsOfWp\DeveloperCli\Boilerplate\Step\Exception\UnableToCreateException;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -28,6 +29,11 @@ class InitializeStep extends SimpleStep
          * @todo ask for settings (this should be reusable or stand-alone)
          */
         $pluginDescription = $questionHelper->ask($input, $output, new Question('Please enter the description of the plugin: ', ''));
+
+        $isAdminPlugin = $this->askYesNoQuestion('Is this plugin an admin plugin', $questionHelper, $input, $output);
+
+        $configuration->setIsAdminPlugin($isAdminPlugin);
+
         $outputDir = $input->getArgument('outputDir');
         $pluginVersion = '1.0.0';
 
@@ -35,6 +41,17 @@ class InitializeStep extends SimpleStep
         $configuration->setOutputDir($outputDir);
         $configuration->setPluginVersion($pluginVersion);
         $configuration->setPluginDescription($pluginDescription);
+    }
+
+    private function askYesNoQuestion(string $messageWithQuestionmark, QuestionHelper $questionHelper, InputInterface $input, OutputInterface $output): bool
+    {
+        $answer = $questionHelper->ask($input, $output, new Question($messageWithQuestionmark . ' (yes/no)? '));
+        $answer = strtolower($answer);
+        if ($answer === 'n' || $answer === "no") {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**

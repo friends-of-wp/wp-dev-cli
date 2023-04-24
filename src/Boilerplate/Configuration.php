@@ -4,11 +4,20 @@ namespace FriendsOfWp\DeveloperCli\Boilerplate;
 
 class Configuration
 {
+    const BOOTSTRAP_PLACEHOLDER_INCLUDES = '# INCLUDES';
+
+    const PLUGIN_DIR = 'plugin';
+    const PLUGIN_BOILERPLATE_FILE = 'plugin-boilerplate.php';
+
     private string $pluginName;
     private string $pluginSlug;
     private string $pluginDescription;
     private string $pluginVersion;
     private string $outputDir;
+
+    private bool $isAdminPlugin;
+
+    private array $parameters = [];
 
     /**
      * @return string
@@ -93,5 +102,44 @@ class Configuration
     public function getNormalizedPluginName(): string
     {
         return str_replace(' ', '-', strtolower($this->getPluginName()));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdminPlugin(): bool
+    {
+        return $this->isAdminPlugin;
+    }
+
+    /**
+     * @param bool $isAdminPlugin
+     */
+    public function setIsAdminPlugin(bool $isAdminPlugin): void
+    {
+        $this->isAdminPlugin = $isAdminPlugin;
+    }
+
+    /**
+     * @param string $key
+     * @return array
+     */
+    public function getParameter(string $key): array
+    {
+        return $this->parameters[$key];
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     */
+    public function setParameter(string $key, mixed $value): void
+    {
+        $this->parameters[$key] = $value;
+    }
+
+    public function getPluginBootstrapFile(): string
+    {
+        return $this->getOutputDir() . '/' . self::PLUGIN_DIR . '/' . self::PLUGIN_BOILERPLATE_FILE;
     }
 }

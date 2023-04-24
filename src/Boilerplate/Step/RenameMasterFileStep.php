@@ -13,6 +13,6 @@ class RenameMasterFileStep extends SimpleStep
 
         rename($from, $to);
 
-        return "Renamed plugin-boilerplate.php to " . $configuration->getNormalizedPluginName() . '.php';
+        return "Renamed ". Configuration::PLUGIN_BOILERPLATE_FILE . " to " . $configuration->getNormalizedPluginName() . '.php';
     }
 }

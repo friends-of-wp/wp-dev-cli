@@ -19,7 +19,7 @@ class ReplacingPlaceholdersStep extends SimpleStep
      * @var string[]
      */
     private array $files = [
-        'plugin/plugin-boilerplate.php',
+        Configuration::PLUGIN_DIR . '/' . Configuration::PLUGIN_BOILERPLATE_FILE,
         'readme.md'
     ];
 
