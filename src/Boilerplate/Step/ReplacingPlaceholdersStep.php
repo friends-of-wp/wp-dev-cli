@@ -19,26 +19,32 @@ class ReplacingPlaceholdersStep extends SimpleStep
      * @var string[]
      */
     private array $files = [
-        'plugin/plugin-boilerplate.php',
+        Configuration::PLUGIN_DIR . '/' . Configuration::PLUGIN_BOILERPLATE_FILE,
         'readme.md'
     ];
 
-    public function run(Configuration $configuration): string
+    /**
+     * @inheritDoc
+     */
+    public function run(): string
     {
         foreach ($this->files as $file) {
-            $this->replaceInFile($file, $configuration);
+            $this->replaceInFile($file);
         }
 
         return "Replaced all variables in the boilerplate directory";
     }
 
-    private function replaceInFile(string $file, Configuration $configuration)
+    private function replaceInFile(string $file)
     {
+        $configuration = $this->getConfiguration();
+
         $replacements = [
             'PLUGIN_NAME' => $configuration->getPluginName(),
             'PLUGIN_DESCRIPTION' => $configuration->getPluginDescription(),
             'PLUGIN_VERSION' => $configuration->getPluginVersion(),
-            'PLUGIN_NORMALIZED_NAME' => $configuration->getNormalizedPluginName()
+            'PLUGIN_NORMALIZED_NAME' => $configuration->getNormalizedPluginName(),
+            'PLUGIN_UNIQUE_NAME_CONST' => $configuration->getConstantPluginName()
         ];
 
         $filename = $configuration->getOutputDir() . '/' . $file;

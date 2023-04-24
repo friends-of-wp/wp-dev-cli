@@ -11,34 +11,37 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
+use FriendsOfWp\DeveloperCli\Boilerplate\Step\Step;
 
 class BoilerplateCreateCommand extends Command
 {
+    const INPUT_OUTPUT_DIR = 'outputDir';
+
     protected static $defaultName = 'plugin:boilerplate:create';
     protected static $defaultDescription = 'Create an OOP plugin boilerplate with all dependencies.';
 
-    private string $configFile;
-
     /**
-     * @var \FriendsOfWp\DeveloperCli\Boilerplate\Step\Step[]
+     * A list of steps that will be processed for creating a new plugin.
+     *
+     * @var Step[]
      */
     private array $steps = [];
 
     protected function configure()
     {
-        $this->addArgument('outputDir', InputArgument::REQUIRED, 'The output directory for the plugin.');
+        $this->addArgument(self::INPUT_OUTPUT_DIR, InputArgument::REQUIRED, 'The output directory for the plugin.');
         $this->addOption('configFile', 'c', InputOption::VALUE_OPTIONAL, 'The configuration file.', false);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->initSteps($input->getOption('configFile'));
+        $config = new Configuration();
+
+        $this->initSteps($input->getOption('configFile'), $config, $input, $output);
 
         $this->writeWarning($output);
 
-        $config = new Configuration();
-
-        $this->ask($input, $output, $config);
+        $this->ask($output);
 
         $output->writeln("\n<info>Starting plugin creation.</info>\n");
 
@@ -52,13 +55,11 @@ class BoilerplateCreateCommand extends Command
     /**
      * Aks the user for the plugin configuration parameters.
      */
-    private function ask(InputInterface $input, OutputInterface $output, Configuration &$configuration)
+    private function ask(OutputInterface $output)
     {
-        $questionHelper = $this->getHelper('question');
-
         foreach ($this->steps as $step) {
             try {
-                $step->ask($configuration, $input, $output, $questionHelper);
+                $step->ask();
             } catch (UnableToCreateException $e) {
                 $message = "Unable to create boilerplate. " . $e->getMessage();
                 $spaces = str_repeat(' ', strlen($message) + 4);
@@ -74,16 +75,29 @@ class BoilerplateCreateCommand extends Command
         }
     }
 
-    private function initSteps(string $configFile)
+    private function initSteps(string $configFile, Configuration $configuration, InputInterface $input, OutputInterface $output)
     {
-        if (!$configFile) {
-            $configFile = __DIR__ . '/../../../config/boilerplate/default.yml';
+        $questionHelper = $this->getHelper('question');
+
+        $defaultConfigFile = __DIR__ . '/../../../config/boilerplate/default.yml';
+        $defaultConfig = Yaml::parse(file_get_contents($defaultConfigFile));
+
+        if ($configFile) {
+            $customConfig = Yaml::parse(file_get_contents($configFile));
+        } else {
+            $customConfig = [];
         }
 
-        $config = Yaml::parse(file_get_contents($configFile));
+        $config = array_merge($customConfig, $defaultConfig);
+
+        if (array_key_exists('parameters', $config)) {
+            foreach ($config['parameters'] as $key => $value) {
+                $configuration->setParameter($key, $value);
+            }
+        }
 
         foreach ($config['steps'] as $stepName) {
-            $this->steps[] = new $stepName;
+            $this->steps[] = new $stepName($configuration, $input, $output, $questionHelper);
         }
     }
 
@@ -95,7 +109,7 @@ class BoilerplateCreateCommand extends Command
 
         foreach ($this->steps as $step) {
             $stepCount++;
-            $output->writeln('Step ' . $stepCount . '/' . $numberOfSteps . ': ' . $step->run($configuration));
+            $output->writeln('Step ' . $stepCount . '/' . $numberOfSteps . ': ' . $step->run());
         }
     }
 }

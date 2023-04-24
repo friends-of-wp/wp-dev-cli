@@ -2,29 +2,15 @@
 
 namespace FriendsOfWp\DeveloperCli\Boilerplate\Step;
 
-use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
 use FriendsOfWp\DeveloperCli\Boilerplate\Step\Exception\UnableToCreateException;
 use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
 class CopyTemplatesStep extends SimpleStep
 {
-    public function ask(Configuration $configuration, InputInterface $input, OutputInterface $output, QuestionHelper $questionHelper): void
+    public function run(): string
     {
-        if (file_exists($configuration->getOutputDir())) {
-            $output->writeln('');
-            $overWrite = $questionHelper->ask($input, $output, new Question('The output dir is already existing. Do you want to overwrite it (yes/no)? '));
-            if ($overWrite === 'n' || $overWrite === "no") {
-                throw new UnableToCreateException('Output directory already exists and will not be overwritten.');
-            }
-        }
-    }
-
-    public function run(Configuration $configuration): string
-    {
-        $destinationDirectory = $configuration->getOutputDir();
+        $destinationDirectory = $this->getConfiguration()->getOutputDir();
         $sourceDirectory = __DIR__ . '/../../../boilerplate/';
 
         $this->prepareDirectory($destinationDirectory);
