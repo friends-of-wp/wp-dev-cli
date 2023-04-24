@@ -6,6 +6,9 @@ use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
 
 class RenameMasterFileStep extends SimpleStep
 {
+    /**
+     * @inheritDoc
+     */
     public function run(): string
     {
         $configuration = $this->getConfiguration();

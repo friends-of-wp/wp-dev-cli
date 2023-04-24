@@ -23,6 +23,9 @@ class ReplacingPlaceholdersStep extends SimpleStep
         'readme.md'
     ];
 
+    /**
+     * @inheritDoc
+     */
     public function run(): string
     {
         foreach ($this->files as $file) {
@@ -40,7 +43,8 @@ class ReplacingPlaceholdersStep extends SimpleStep
             'PLUGIN_NAME' => $configuration->getPluginName(),
             'PLUGIN_DESCRIPTION' => $configuration->getPluginDescription(),
             'PLUGIN_VERSION' => $configuration->getPluginVersion(),
-            'PLUGIN_NORMALIZED_NAME' => $configuration->getNormalizedPluginName()
+            'PLUGIN_NORMALIZED_NAME' => $configuration->getNormalizedPluginName(),
+            'PLUGIN_UNIQUE_NAME_CONST' => $configuration->getConstantPluginName()
         ];
 
         $filename = $configuration->getOutputDir() . '/' . $file;

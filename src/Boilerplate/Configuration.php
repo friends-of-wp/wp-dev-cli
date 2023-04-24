@@ -2,45 +2,29 @@
 
 namespace FriendsOfWp\DeveloperCli\Boilerplate;
 
+use http\Exception\RuntimeException;
+
 class Configuration
 {
     const BOOTSTRAP_PLACEHOLDER_INCLUDES = '# INCLUDES';
 
     const PLUGIN_DIR = 'plugin';
     const PLUGIN_BOILERPLATE_FILE = 'plugin-boilerplate.php';
+    const PARAM_PLUGIN_NAME = 'core_plugin_name';
+    const PARAM_PLUGIN_DESCRIPTION = 'core_plugin_description';
+    const PARAM_PLUGIN_OUTPUT_DIR = 'core_plugin_output_directory';
+    const PARAM_PLUGIN_VERSION = 'core_plugin_version';
 
-    private string $pluginName;
-    private string $pluginSlug;
-    private string $pluginDescription;
-    private string $pluginVersion;
-    private string $outputDir;
-
-    private bool $isAdminPlugin;
+    const PARAM_PLUGIN_IS_ADMIN = 'core_plugin_is_admin';
 
     private array $parameters = [];
-
-    /**
-     * @return string
-     */
-    public function getPluginSlug(): string
-    {
-        return $this->pluginSlug;
-    }
-
-    /**
-     * @param string $pluginSlug
-     */
-    public function setPluginSlug(string $pluginSlug): void
-    {
-        $this->pluginSlug = $pluginSlug;
-    }
 
     /**
      * @param string $pluginName
      */
     public function setPluginName(string $pluginName): void
     {
-        $this->pluginName = $pluginName;
+        $this->setParameter(self::PARAM_PLUGIN_NAME, $pluginName);
     }
 
     /**
@@ -48,7 +32,7 @@ class Configuration
      */
     public function setPluginDescription(string $pluginDescription): void
     {
-        $this->pluginDescription = $pluginDescription;
+        $this->setParameter(self::PARAM_PLUGIN_DESCRIPTION, $pluginDescription);
     }
 
     /**
@@ -56,7 +40,7 @@ class Configuration
      */
     public function setPluginVersion(string $pluginVersion): void
     {
-        $this->pluginVersion = $pluginVersion;
+        $this->setParameter(self::PARAM_PLUGIN_VERSION, $pluginVersion);
     }
 
     /**
@@ -64,7 +48,7 @@ class Configuration
      */
     public function setOutputDir(string $outputDir): void
     {
-        $this->outputDir = $outputDir;
+        $this->setParameter(self::PARAM_PLUGIN_OUTPUT_DIR, $outputDir);
     }
 
     /**
@@ -72,7 +56,7 @@ class Configuration
      */
     public function getPluginName(): string
     {
-        return $this->pluginName;
+        return $this->getParameter(self::PARAM_PLUGIN_NAME);
     }
 
     /**
@@ -80,7 +64,7 @@ class Configuration
      */
     public function getPluginDescription(): string
     {
-        return $this->pluginDescription;
+        return $this->getParameter(self::PARAM_PLUGIN_DESCRIPTION);
     }
 
     /**
@@ -88,7 +72,7 @@ class Configuration
      */
     public function getPluginVersion(): string
     {
-        return $this->pluginVersion;
+        return $this->getParameter(self::PARAM_PLUGIN_VERSION);
     }
 
     /**
@@ -96,7 +80,7 @@ class Configuration
      */
     public function getOutputDir(): string
     {
-        return $this->outputDir;
+        return $this->getParameter(self::PARAM_PLUGIN_OUTPUT_DIR);
     }
 
     public function getNormalizedPluginName(): string
@@ -111,28 +95,19 @@ class Configuration
         return str_replace('--', '-', $str);
     }
 
-    /**
-     * @return bool
-     */
-    public function isAdminPlugin(): bool
+    public function getConstantPluginName(): string
     {
-        return $this->isAdminPlugin;
+        return strtoupper(str_replace('-', '_', $this->getNormalizedPluginName())) . '_NAME';
     }
 
     /**
-     * @param bool $isAdminPlugin
+     * Return a pre-stored parameter
      */
-    public function setIsAdminPlugin(bool $isAdminPlugin): void
+    public function getParameter(string $key): string
     {
-        $this->isAdminPlugin = $isAdminPlugin;
-    }
-
-    /**
-     * @param string $key
-     * @return array
-     */
-    public function getParameter(string $key): array
-    {
+        if (!$this->hasParameter($key)) {
+            throw  new \RuntimeException('No parameter with key "' . $key . '" found');
+        }
         return $this->parameters[$key];
     }
 
@@ -143,6 +118,11 @@ class Configuration
     public function setParameter(string $key, mixed $value): void
     {
         $this->parameters[$key] = $value;
+    }
+
+    public function hasParameter(string $key): bool
+    {
+        return array_key_exists($key, $this->parameters);
     }
 
     public function getPluginBootstrapFile(): string

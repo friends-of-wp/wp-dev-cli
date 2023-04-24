@@ -2,6 +2,7 @@
 
 namespace FriendsOfWp\DeveloperCli\Boilerplate\Step;
 
+use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Question\Question;
 
@@ -19,53 +20,48 @@ class InitializeStep extends SimpleStep
     /**
      * @inheritDoc
      */
-    public function ask(QuestionHelper $questionHelper): void
+    public function ask(): void
     {
-        $pluginName = $this->askPluginName($questionHelper);
-
         /**
          * @todo ask for: version number, author
          * @todo ask for composer
          * @todo ask for settings (this should be reusable or stand-alone)
          */
-        $pluginDescription = $questionHelper->ask($this->getInput(), $this->getOutput(), new Question('Please enter the description of the plugin: ', ''));
-
-        $isAdminPlugin = $this->askYesNoQuestion('Is this plugin an admin plugin', $questionHelper);
+        $pluginName = $this->askPluginName();
+        $pluginDescription = $this->askQuestion(new Question('Please enter the description of the plugin: '), Configuration::PARAM_PLUGIN_DESCRIPTION);
+        $pluginVersion = $this->askQuestion(new Question('Please enter the version of the plugin (example: 1.0.0): '), Configuration::PARAM_PLUGIN_VERSION);
 
         $configuration = $this->getConfiguration();
-
-        $configuration->setIsAdminPlugin($isAdminPlugin);
-
-        $outputDir = $this->getInput()->getArgument('outputDir');
-        $pluginVersion = '1.0.0';
-
-        $configuration->setPluginName($pluginName);
-        $configuration->setOutputDir($outputDir);
-        $configuration->setPluginVersion($pluginVersion);
         $configuration->setPluginDescription($pluginDescription);
+        $configuration->setPluginName($pluginName);
+        $configuration->setPluginVersion($pluginVersion);
     }
 
     /**
      * @todo check if similar name is already existing (use plugin db for that)
      */
-    private function askPluginName(QuestionHelper $questionHelper): string
+    private function askPluginName(): string
     {
         $validPluginName = false;
-        $pluginName = '';
+        $firstQuestion = true;
         while (!$validPluginName) {
-            $pluginName = $questionHelper->ask($this->getInput(), $this->getOutput(), new Question('Please enter the name of the plugin (e.g. Acme Security): ', ''));
+            $pluginName = $this->askQuestion(new Question('Please enter the name of the plugin (e.g. Acme Security): '), Configuration::PARAM_PLUGIN_NAME, !$firstQuestion);
+            $firstQuestion = false;
             $validPluginName = $this->isValidPluginName($pluginName);
 
             if (!$validPluginName) {
-                $this->warning($this->getOutput(), 'The given plugin name it not valid. It has to have at least three characters.');
+                $this->warning('The given plugin name "' . $pluginName . '" it not valid. It has to have at least three characters.');
             }
         }
 
         return $pluginName;
     }
 
-    private function isValidPluginName(string $pluginName): bool
+    private function isValidPluginName(?string $pluginName): bool
     {
+        if (is_null($pluginName)) {
+            return false;
+        }
         if (strlen($pluginName) < 3) {
             return false;
         }

@@ -13,23 +13,33 @@ abstract class SimpleStep implements Step
     private Configuration $configuration;
     private InputInterface $input;
     private OutputInterface $output;
+    private QuestionHelper $questionHelper;
 
     /**
      * The constructor
      */
-    public function __construct(Configuration $configuration, InputInterface $input, OutputInterface $output)
+    public function __construct(Configuration $configuration, InputInterface $input, OutputInterface $output, QuestionHelper $questionHelper)
     {
         $this->configuration = $configuration;
         $this->input = $input;
         $this->output = $output;
+        $this->questionHelper = $questionHelper;
+    }
+
+    /**
+     * @return QuestionHelper
+     */
+    public function getQuestionHelper(): QuestionHelper
+    {
+        return $this->questionHelper;
     }
 
     /**
      * Ask a simple yes/no question.
      */
-    protected function askYesNoQuestion(string $messageWithQuestionmark, QuestionHelper $questionHelper): bool
+    protected function askYesNoQuestion(string $messageWithQuestionmark, string $identifier = null): bool
     {
-        $answer = $questionHelper->ask($this->getInput(), $this->getOutput(), new Question($messageWithQuestionmark . ' (yes/no)? '));
+        $answer = $this->askQuestion(new Question($messageWithQuestionmark . '(yes/no)? '), $identifier);
 
         if (!$answer) {
             return true;
@@ -46,7 +56,7 @@ abstract class SimpleStep implements Step
     /**
      * @inheritDoc
      */
-    public function ask(QuestionHelper $questionHelper): void
+    public function ask(): void
     {
 
     }
@@ -54,8 +64,9 @@ abstract class SimpleStep implements Step
     /**
      * This function writes a standardized warning to the command line.
      */
-    protected function warning(OutputInterface $output, string $message)
+    protected function warning(string $message)
     {
+        $output = $this->getOutput();
         $output->writeln('');
         $output->writeln('<bg=yellow>' . $message . '</>');
         $output->writeln('');
@@ -88,16 +99,31 @@ abstract class SimpleStep implements Step
     /**
      * Copy a file and replace placeholders.
      */
-    protected function enrichedCopy(string $from, string $to, $enrichArray = [])
+    protected function enrichedCopy(string $from, string $to, $enrichArray = [], $limiters = '##')
     {
         $fullEnrichArray = $enrichArray;
 
         $content = file_get_contents($from);
 
         foreach ($fullEnrichArray as $search => $replacement) {
-            $content = str_replace('##' . $search . '##', $replacement, $content);
+            $content = str_replace($limiters . $search . $limiters, $replacement, $content);
         }
 
         file_put_contents($to, $content);
+    }
+
+    protected function askQuestion(Question $question, string $identifier = null, $ignoreConfigurationParameter = false)
+    {
+        $configuration = $this->getConfiguration();
+
+        if (!$ignoreConfigurationParameter && $identifier && $configuration->hasParameter($identifier)) {
+            return $configuration->getParameter($identifier);
+        } else {
+            $answer = $this->getQuestionHelper()->ask($this->getInput(), $this->getOutput(), $question);
+            if ($identifier) {
+                $configuration->setParameter($identifier, $answer);
+            }
+            return $answer;
+        }
     }
 }

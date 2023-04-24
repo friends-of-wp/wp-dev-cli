@@ -4,10 +4,9 @@
             "FriendsOfWp\\DeveloperCli\\": "src/"
         }
     },
-
     "require": {
-        "symfony/console": "^6.2",
         "friends-of-wp/pluginretriever": "^1.2",
+        "symfony/console": "^6.2",
         "symfony/yaml": "^6.2"
     }
 }

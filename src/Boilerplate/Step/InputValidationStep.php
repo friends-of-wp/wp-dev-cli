@@ -4,7 +4,6 @@ namespace FriendsOfWp\DeveloperCli\Boilerplate\Step;
 
 use FriendsOfWp\DeveloperCli\Boilerplate\Step\Exception\UnableToCreateException;
 use FriendsOfWp\DeveloperCli\Command\Plugin\BoilerplateCreateCommand;
-use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Question\Question;
 
 /**
@@ -21,15 +20,18 @@ class InputValidationStep extends SimpleStep
     /**
      * @inheritDoc
      */
-    public function ask(QuestionHelper $questionHelper): void
+    public function ask(): void
     {
         if (file_exists($this->getInput()->getArgument(BoilerplateCreateCommand::INPUT_OUTPUT_DIR))) {
             $this->getOutput()->writeln('');
-            $overWrite = $questionHelper->ask($this->getInput(), $this->getOutput(), new Question('The output dir is already existing. Do you want to overwrite it (yes/no)? '));
+            $overWrite = $this->getQuestionHelper()->ask($this->getInput(), $this->getOutput(), new Question('The output dir is already existing. Do you want to overwrite it (yes/no)? '));
             if ($overWrite === 'n' || $overWrite === "no") {
                 throw new UnableToCreateException('Output directory already exists and will not be overwritten.');
             }
         }
+
+        $outputDir = $this->getInput()->getArgument('outputDir');
+        $this->getConfiguration()->setOutputDir($outputDir);
     }
 
     /**

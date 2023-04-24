@@ -12,13 +12,13 @@ interface Step
     /**
      * The constructor.
      */
-    public function __construct(Configuration $configuration, InputInterface $input, OutputInterface $output);
+    public function __construct(Configuration $configuration, InputInterface $input, OutputInterface $output, QuestionHelper $questionHelper);
 
     /**
      * Every step can ask the user for information needed to run it. All "ask" methods will be
      * called before the first step is executed.
      */
-    public function ask(QuestionHelper $questionHelper): void;
+    public function ask(): void;
 
     /**
      * Run this step with all parameters in the configuration.

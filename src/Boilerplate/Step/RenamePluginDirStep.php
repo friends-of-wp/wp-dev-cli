@@ -4,6 +4,9 @@ namespace FriendsOfWp\DeveloperCli\Boilerplate\Step;
 
 class RenamePluginDirStep extends SimpleStep
 {
+    /**
+     * @inheritDoc
+     */
     public function run(): string
     {
         $configuration = $this->getConfiguration();

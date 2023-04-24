@@ -57,11 +57,9 @@ class BoilerplateCreateCommand extends Command
      */
     private function ask(OutputInterface $output)
     {
-        $questionHelper = $this->getHelper('question');
-
         foreach ($this->steps as $step) {
             try {
-                $step->ask($questionHelper);
+                $step->ask();
             } catch (UnableToCreateException $e) {
                 $message = "Unable to create boilerplate. " . $e->getMessage();
                 $spaces = str_repeat(' ', strlen($message) + 4);
@@ -79,14 +77,27 @@ class BoilerplateCreateCommand extends Command
 
     private function initSteps(string $configFile, Configuration $configuration, InputInterface $input, OutputInterface $output)
     {
-        if (!$configFile) {
-            $configFile = __DIR__ . '/../../../config/boilerplate/default.yml';
+        $questionHelper = $this->getHelper('question');
+
+        $defaultConfigFile = __DIR__ . '/../../../config/boilerplate/default.yml';
+        $defaultConfig = Yaml::parse(file_get_contents($defaultConfigFile));
+
+        if ($configFile) {
+            $customConfig = Yaml::parse(file_get_contents($configFile));
+        } else {
+            $customConfig = [];
         }
 
-        $config = Yaml::parse(file_get_contents($configFile));
+        $config = array_merge($customConfig, $defaultConfig);
+
+        if (array_key_exists('parameters', $config)) {
+            foreach ($config['parameters'] as $key => $value) {
+                $configuration->setParameter($key, $value);
+            }
+        }
 
         foreach ($config['steps'] as $stepName) {
-            $this->steps[] = new $stepName($configuration, $input, $output);
+            $this->steps[] = new $stepName($configuration, $input, $output, $questionHelper);
         }
     }
 

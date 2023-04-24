@@ -33,4 +33,6 @@ include_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 # CONSTANTS
 
-# INCLUDE PAGES START
+define('##PLUGIN_UNIQUE_NAME_CONST##', '##PLUGIN_NAME##');
+
+# INCLUDE PAGES

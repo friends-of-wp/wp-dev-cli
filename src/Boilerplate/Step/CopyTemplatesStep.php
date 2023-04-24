@@ -8,11 +8,6 @@ use Symfony\Component\Console\Question\Question;
 
 class CopyTemplatesStep extends SimpleStep
 {
-    public function ask(QuestionHelper $questionHelper): void
-    {
-
-    }
-
     public function run(): string
     {
         $destinationDirectory = $this->getConfiguration()->getOutputDir();

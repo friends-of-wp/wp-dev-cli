@@ -3,7 +3,6 @@
 namespace FriendsOfWp\DeveloperCli\Boilerplate\Step;
 
 use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
-use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Question\Question;
 
 class PrepareAdminStep extends SimpleStep
@@ -13,11 +12,15 @@ class PrepareAdminStep extends SimpleStep
     /**
      * @inheritDoc
      */
-    public function ask(QuestionHelper $questionHelper): void
+    public function ask(): void
     {
-        $string = 'a';
-        if ($this->getConfiguration()->isAdminPlugin()) {
-            while ($this->askYesNoQuestion('Do you want to add ' . $string . ' page in the WordPress admin area', $questionHelper)) {
+        $questionHelper = $this->getQuestionHelper();
+
+        $isAdminPlugin = $this->askYesNoQuestion('Is this plugin an admin plugin ', Configuration::PARAM_PLUGIN_IS_ADMIN);
+
+        if ($isAdminPlugin) {
+            $string = 'a';
+            while ($this->askYesNoQuestion('Do you want to add ' . $string . ' page in the WordPress admin area')) {
                 $string = 'another';
                 $this->getOutput()->writeln('');
                 $newPage = $questionHelper->ask($this->getInput(), $this->getOutput(), new Question('What is the name of that page? '));
@@ -39,6 +42,7 @@ class PrepareAdminStep extends SimpleStep
         if ($configuration->isAdminPlugin()) {
             $this->runIncludesAdd();
             $this->runPageCreation();
+            $this->runPageRegistration();
         }
 
         return "Plugin enriched with admin functionalities. Added " . count($this->adminPages) . " admin pages.";
@@ -57,7 +61,7 @@ class PrepareAdminStep extends SimpleStep
      */
     private function copyPage($pageName)
     {
-        $from = __DIR__ . '/templates/admin/page.php';
+        $from = __DIR__ . '/templates/prepare-admin/page.php';
         $toDir = $this->getConfiguration()->getOutputDir() . '/' . Configuration::PLUGIN_DIR . '/includes/pages';
         $this->copyFile($pageName, $from, $toDir);
     }
@@ -67,7 +71,7 @@ class PrepareAdminStep extends SimpleStep
      */
     private function copyTemplate($pageName)
     {
-        $from = __DIR__ . '/templates/admin/template.php';
+        $from = __DIR__ . '/templates/prepare-admin/template.php';
         $toDir = $this->getConfiguration()->getOutputDir() . '/' . Configuration::PLUGIN_DIR . '/templates';
         $this->copyFile($pageName, $from, $toDir);
     }
@@ -114,4 +118,37 @@ class PrepareAdminStep extends SimpleStep
         $content = str_replace(Configuration::BOOTSTRAP_PLACEHOLDER_INCLUDES, Configuration::BOOTSTRAP_PLACEHOLDER_INCLUDES . "\n" . $include, $content);
         file_put_contents($bootstrapFile, $content);
     }
+
+    private function getMenuFunctionName(): string
+    {
+        $name = str_replace('-', '_', $this->getConfiguration()->getNormalizedPluginName());
+        $name .= '_menu';
+
+        return strtolower($name);
+    }
+
+    private function runPageRegistration()
+    {
+        $registrationContent = '';
+
+        if (count($this->adminPages) > 0) {
+            $registrationContent .= "/**\n * Register menu and pages.\n */\n";
+            $registrationContent .= "add_action('admin_menu', '" . $this->getMenuFunctionName() . "');\n";
+            $registrationContent .= "\n\n";
+            $registrationContent .= "function " . $this->getMenuFunctionName() . "()\n{\n";
+        }
+
+        $constName = $this->getConfiguration()->getConstantPluginName();
+
+        foreach ($this->adminPages as $adminPage) {
+            $registrationContent .= "    add_menu_page($constName, $constName, 'administrator', $constName, function () { include __DIR__ . '/includes/pages/settings.php'; }, 'dashicons-lock', 26);\n";
+        }
+
+        $registrationContent .= "}\n";
+
+        $boilerplateFile = $this->getConfiguration()->getOutputDir() . '/plugin/plugin-boilerplate.php';
+
+        $this->enrichedCopy($boilerplateFile, $boilerplateFile, ['# INCLUDE PAGES' => "# INCLUDE PAGES\n" . $registrationContent], '');
+    }
+
 }
