@@ -23,17 +23,19 @@ class ReplacingPlaceholdersStep extends SimpleStep
         'readme.md'
     ];
 
-    public function run(Configuration $configuration): string
+    public function run(): string
     {
         foreach ($this->files as $file) {
-            $this->replaceInFile($file, $configuration);
+            $this->replaceInFile($file);
         }
 
         return "Replaced all variables in the boilerplate directory";
     }
 
-    private function replaceInFile(string $file, Configuration $configuration)
+    private function replaceInFile(string $file)
     {
+        $configuration = $this->getConfiguration();
+
         $replacements = [
             'PLUGIN_NAME' => $configuration->getPluginName(),
             'PLUGIN_DESCRIPTION' => $configuration->getPluginDescription(),

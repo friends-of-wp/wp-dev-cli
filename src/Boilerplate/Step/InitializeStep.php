@@ -2,11 +2,7 @@
 
 namespace FriendsOfWp\DeveloperCli\Boilerplate\Step;
 
-use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
-use FriendsOfWp\DeveloperCli\Boilerplate\Step\Exception\UnableToCreateException;
 use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
 /**
@@ -15,26 +11,32 @@ use Symfony\Component\Console\Question\Question;
  *
  * @todo ask for @since. This should always be the newest WordPress version (taken from the WP API).
  *       This API should also be used to validate the version number.
+ *
+ * @todo ask for license
  */
 class InitializeStep extends SimpleStep
 {
-    public function ask(Configuration $configuration, InputInterface $input, OutputInterface $output, QuestionHelper $questionHelper): void
+    /**
+     * @inheritDoc
+     */
+    public function ask(QuestionHelper $questionHelper): void
     {
-        $pluginName = $this->askPluginName($questionHelper, $input, $output);
+        $pluginName = $this->askPluginName($questionHelper);
 
         /**
          * @todo ask for: version number, author
-         * @todo ask for license
          * @todo ask for composer
          * @todo ask for settings (this should be reusable or stand-alone)
          */
-        $pluginDescription = $questionHelper->ask($input, $output, new Question('Please enter the description of the plugin: ', ''));
+        $pluginDescription = $questionHelper->ask($this->getInput(), $this->getOutput(), new Question('Please enter the description of the plugin: ', ''));
 
-        $isAdminPlugin = $this->askYesNoQuestion('Is this plugin an admin plugin', $questionHelper, $input, $output);
+        $isAdminPlugin = $this->askYesNoQuestion('Is this plugin an admin plugin', $questionHelper);
+
+        $configuration = $this->getConfiguration();
 
         $configuration->setIsAdminPlugin($isAdminPlugin);
 
-        $outputDir = $input->getArgument('outputDir');
+        $outputDir = $this->getInput()->getArgument('outputDir');
         $pluginVersion = '1.0.0';
 
         $configuration->setPluginName($pluginName);
@@ -43,30 +45,19 @@ class InitializeStep extends SimpleStep
         $configuration->setPluginDescription($pluginDescription);
     }
 
-    private function askYesNoQuestion(string $messageWithQuestionmark, QuestionHelper $questionHelper, InputInterface $input, OutputInterface $output): bool
-    {
-        $answer = $questionHelper->ask($input, $output, new Question($messageWithQuestionmark . ' (yes/no)? '));
-        $answer = strtolower($answer);
-        if ($answer === 'n' || $answer === "no") {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     /**
      * @todo check if similar name is already existing (use plugin db for that)
      */
-    private function askPluginName(QuestionHelper $questionHelper, InputInterface $input, OutputInterface $output): string
+    private function askPluginName(QuestionHelper $questionHelper): string
     {
         $validPluginName = false;
         $pluginName = '';
         while (!$validPluginName) {
-            $pluginName = $questionHelper->ask($input, $output, new Question('Please enter the name of the plugin (e.g. Acme Security): ', ''));
+            $pluginName = $questionHelper->ask($this->getInput(), $this->getOutput(), new Question('Please enter the name of the plugin (e.g. Acme Security): ', ''));
             $validPluginName = $this->isValidPluginName($pluginName);
 
             if (!$validPluginName) {
-                $this->warning($output, 'The given plugin name it not valid. It has to have at least three characters.');
+                $this->warning($this->getOutput(), 'The given plugin name it not valid. It has to have at least three characters.');
             }
         }
 
@@ -81,7 +72,10 @@ class InitializeStep extends SimpleStep
         return true;
     }
 
-    public function run(Configuration $configuration): string
+    /**
+     * @inheritDoc
+     */
+    public function run(): string
     {
         return "Initialized plugin configuration";
     }

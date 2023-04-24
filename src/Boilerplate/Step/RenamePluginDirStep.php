@@ -2,12 +2,12 @@
 
 namespace FriendsOfWp\DeveloperCli\Boilerplate\Step;
 
-use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
-
 class RenamePluginDirStep extends SimpleStep
 {
-    public function run(Configuration $configuration): string
+    public function run(): string
     {
+        $configuration = $this->getConfiguration();
+
         $from = $configuration->getOutputDir() . '/plugin/';
         $to = $configuration->getOutputDir() . '/' . $configuration->getNormalizedPluginName() . '/';
 

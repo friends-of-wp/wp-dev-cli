@@ -6,8 +6,10 @@ use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
 
 class RenameMasterFileStep extends SimpleStep
 {
-    public function run(Configuration $configuration): string
+    public function run(): string
     {
+        $configuration = $this->getConfiguration();
+
         $from = $configuration->getOutputDir() . '/plugin/plugin-boilerplate.php';
         $to = $configuration->getOutputDir() . '/plugin/' . $configuration->getNormalizedPluginName() . '.php';
 

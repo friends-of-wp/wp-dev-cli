@@ -101,7 +101,12 @@ class Configuration
 
     public function getNormalizedPluginName(): string
     {
-        return str_replace(' ', '-', strtolower($this->getPluginName()));
+        $separator = "-";
+
+        $str = lcfirst($this->getPluginName());
+        $str = preg_replace("/[A-Z]/", $separator . "$0", $str);
+
+        return str_replace(' ', '-', strtolower($str));
     }
 
     /**

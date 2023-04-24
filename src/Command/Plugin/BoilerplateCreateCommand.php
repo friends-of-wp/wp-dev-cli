@@ -32,11 +32,11 @@ class BoilerplateCreateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->initSteps($input->getOption('configFile'));
+        $config = new Configuration();
+
+        $this->initSteps($input->getOption('configFile'), $config, $input, $output);
 
         $this->writeWarning($output);
-
-        $config = new Configuration();
 
         $this->ask($input, $output, $config);
 
@@ -58,7 +58,7 @@ class BoilerplateCreateCommand extends Command
 
         foreach ($this->steps as $step) {
             try {
-                $step->ask($configuration, $input, $output, $questionHelper);
+                $step->ask($questionHelper);
             } catch (UnableToCreateException $e) {
                 $message = "Unable to create boilerplate. " . $e->getMessage();
                 $spaces = str_repeat(' ', strlen($message) + 4);
@@ -74,7 +74,7 @@ class BoilerplateCreateCommand extends Command
         }
     }
 
-    private function initSteps(string $configFile)
+    private function initSteps(string $configFile, Configuration $configuration, InputInterface $input, OutputInterface $output)
     {
         if (!$configFile) {
             $configFile = __DIR__ . '/../../../config/boilerplate/default.yml';
@@ -83,7 +83,7 @@ class BoilerplateCreateCommand extends Command
         $config = Yaml::parse(file_get_contents($configFile));
 
         foreach ($config['steps'] as $stepName) {
-            $this->steps[] = new $stepName;
+            $this->steps[] = new $stepName($configuration, $input, $output);
         }
     }
 
@@ -95,7 +95,7 @@ class BoilerplateCreateCommand extends Command
 
         foreach ($this->steps as $step) {
             $stepCount++;
-            $output->writeln('Step ' . $stepCount . '/' . $numberOfSteps . ': ' . $step->run($configuration));
+            $output->writeln('Step ' . $stepCount . '/' . $numberOfSteps . ': ' . $step->run());
         }
     }
 }
