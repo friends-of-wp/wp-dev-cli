@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "795727251ac2556d69596edb90761d67",
+    "content-hash": "90fe48e3543791eea6c1e6fa570f75b4",
     "packages": [
         {
             "name": "friends-of-wp/pluginretriever",
