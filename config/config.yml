@@ -1,0 +1,8 @@
+commands:
+  # Friends of WP - Create an OOP plugin boilerplate with all dependencies.
+  # plugin:boilerplate:create
+  - \FriendsOfWp\BoilerplateDevCliExtension\Command\BoilerplateCreateCommand
+
+  # Friends of WP - Download all plugins information from the WordPress.org directory.
+  # wordpress:directory:export
+  - FriendsOfWp\DeveloperCli\Command\WordPress\Directory\ExportCommand

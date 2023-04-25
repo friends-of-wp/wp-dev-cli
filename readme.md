@@ -27,7 +27,7 @@ Now you are ready to use our WordPress CLI for Developers.
 - **`wordpress:directory:export`** - This command exports the information for all plugins from the wordpress.org plugin directory into a CSV file. 
 
 
-- **`plugin:boilerplate:create`** - This function creates a new plugin boilerplate with all needed dependency. Additional steps can easily be defined. [More information](docs/command/plugin-boilerplate-create.md).
+- **`plugin:boilerplate:create`** - This function creates a new plugin boilerplate with all needed dependency. Additional steps can easily be defined. [More information](https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate/blob/main/docs/plugin-boilerplate-create.md).
 
 ## Ideas
 
