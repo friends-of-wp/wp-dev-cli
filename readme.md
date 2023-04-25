@@ -12,7 +12,9 @@ Download the latest version of our PHAR archive and give it afterwards rights to
 wget https://github.com/friends-of-wp/wp-dev-cli/releases/latest/download/wp-dev.phar
 chmod +x wp-dev.phar
 ```
+
 To check if the CLI tool is ready to use type:
+
 ```shell
 ./wp-dev.phar
 ```
@@ -28,6 +30,18 @@ Now you are ready to use our WordPress CLI for Developers.
 
 
 - **`plugin:boilerplate:create`** - This function creates a new plugin boilerplate with all needed dependency. Additional steps can easily be defined. [More information](https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate).
+
+
+- **`wordpress:statistics:wordpress`** - Shows the current usage and share of the WordPress versions that are installed. [More information](https://github.com/friends-of-wp/wp-dev-cli-ext-statistics).
+
+
+- **`wordpress:statistics:php`** - Shows the current usage and share of the PHP versions that are installed. We enrich the data with the support dates of the PHP versions. Versions shown in red are already out of support. This can be super dangerous as no sucurity updates will be provided. [More information](https://github.com/friends-of-wp/wp-dev-cli-ext-statistics).
+
+
+- **`wordpress:statistics:mysql`** - Shows the current usage and share of the MySQL versions that are installed. [More information](https://github.com/friends-of-wp/wp-dev-cli-ext-statistics).
+
+
+- **`wordpress:statistics:locale`** - Shows the current usage of the different locales that are available in WordPress. [More information](https://github.com/friends-of-wp/wp-dev-cli-ext-statistics).
 
 ## Ideas
 

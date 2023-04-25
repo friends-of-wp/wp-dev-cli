@@ -6,7 +6,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class OutputHelper
 {
-    static public function writeInfoBox(OutputInterface $output, $message): void
+    static public function writeInfoBox(OutputInterface $output, string $message): void
     {
         $spaces = self::getSpaces($message);
 
@@ -20,7 +20,7 @@ abstract class OutputHelper
     /**
      * Show a red output box with a warning message.
      */
-    static public function writeErrorBox(OutputInterface $output, $message): void
+    static public function writeErrorBox(OutputInterface $output, string $message): void
     {
         $spaces = self::getSpaces($message);
 
@@ -34,7 +34,7 @@ abstract class OutputHelper
     /**
      * Fill out the spaces in the trailing empty lines in the box.
      */
-    static private function getSpaces(string $message, $additionalSpaces = 4): string
+    static private function getSpaces(string $message, int $additionalSpaces = 4): string
     {
         return str_repeat(' ', strlen($message) + $additionalSpaces);
     }

@@ -6,3 +6,19 @@ commands:
   # Friends of WP - Download all plugins information from the WordPress.org directory.
   # wordpress:directory:export
   - FriendsOfWp\DeveloperCli\Command\WordPress\Directory\ExportCommand
+
+  # Friends of WP - Show statistics for the PHP version share in the WordPress universe.
+  # wordpress:statistics:php
+  - FriendsOfWp\WordPressStatsDevCliExtension\Command\PhpStatisticsCommand
+
+  # Friends of WP - how statistics for the WordPress version share in the WordPress universe.
+  # wordpress:statistics:wordpress
+  - FriendsOfWp\WordPressStatsDevCliExtension\Command\WordPressStatisticsCommand
+
+  # Friends of WP - how statistics for the MySQL version share in the WordPress universe
+  # wordpress:statistics:mysql
+  - FriendsOfWp\WordPressStatsDevCliExtension\Command\MySQLStatisticsCommand
+
+  # Friends of WP - how statistics for the MySQL version share in the WordPress universe
+  # wordpress:statistics:locale
+  - FriendsOfWp\WordPressStatsDevCliExtension\Command\LocaleStatisticsCommand
