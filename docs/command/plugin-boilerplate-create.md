@@ -5,7 +5,7 @@
 The usage of the boilerplate creation command is very easy. As the only parameter the plugin output directory is needed. All other configuration is done via the creation process starting afterwards.
 
 ```shell
-php bin/fowp.php plugin:boilerplate:create /path/to/plugin/plugin-name
+./wp-dev.phar plugin:boilerplate:create /path/to/plugin/plugin-name
 ```
 
 ## How to create individual steps
@@ -28,7 +28,6 @@ steps:
   - \FriendsOfWp\DeveloperCli\Boilerplate\Step\ReplacingPlaceholdersStep
   - \FriendsOfWp\DeveloperCli\Boilerplate\Step\RenameMasterFileStep
   - \FriendsOfWp\DeveloperCli\Boilerplate\Step\RenamePluginDirStep
-
 ```
 
 ## How to pre-define parameters
@@ -49,5 +48,7 @@ parameters:
 - Create settings configuration ([RFC-FWP-01](https://github.com/friends-of-wp/rfc-fwp-01-settings))
 - Create empty plugin admin pages
 - Add author to plugin questions
+- Select license
+- Select menu images
 - Extend config file to prefill "questions" (like author).
 
