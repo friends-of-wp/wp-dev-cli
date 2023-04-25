@@ -6,6 +6,7 @@ use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
 use FriendsOfWp\DeveloperCli\Boilerplate\Step\Exception\UnableToCreateException;
 use FriendsOfWp\DeveloperCli\Command\Command;
 use FriendsOfWp\DeveloperCli\Util\ConfigFileLoader;
+use FriendsOfWp\DeveloperCli\Util\OutputHelper;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -35,11 +36,11 @@ class BoilerplateCreateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        OutputHelper::writeInfoBox($output, "This command creates a plugin boiler plate. Please answer some questions to individualize it.");
+
         $config = new Configuration();
 
         $this->initSteps($input->getOption('configFile'), $config, $input, $output);
-
-        // $this->writeWarning($output);
 
         $this->ask($output);
 
@@ -62,15 +63,8 @@ class BoilerplateCreateCommand extends Command
                 $step->ask();
             } catch (UnableToCreateException $e) {
                 $message = "Unable to create boilerplate. " . $e->getMessage();
-                $spaces = str_repeat(' ', strlen($message) + 4);
-
-                $output->writeln("");
-                $output->writeln('<error>' . $spaces . "</error>");
-                $output->writeln("<error>  " . $message . "  </error>");
-                $output->writeln('<error>' . $spaces . "</error>");
-                $output->writeln("");
-
-                die;
+                OutputHelper::writeErrorBox($output, $message);
+                die(SymfonyCommand::FAILURE);
             }
         }
     }

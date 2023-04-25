@@ -39,7 +39,7 @@ class PrepareAdminStep extends SimpleStep
     {
         $configuration = $this->getConfiguration();
 
-        if ($configuration->isAdminPlugin()) {
+        if ($configuration->getParameter(Configuration::PARAM_PLUGIN_IS_ADMIN)) {
             $this->runIncludesAdd();
             $this->runPageCreation();
             $this->runPageRegistration();
@@ -111,12 +111,9 @@ class PrepareAdminStep extends SimpleStep
      */
     private function runIncludesAdd(): void
     {
-        $configuration = $this->getConfiguration();
-        $bootstrapFile = $configuration->getPluginBootstrapFile();
+        $bootstrapFile = $this->getConfiguration()->getPluginBootstrapFile();
         $include = "include_once ABSPATH . 'wp-admin/includes/admin.php';\n";
-        $content = file_get_contents($bootstrapFile);
-        $content = str_replace(Configuration::BOOTSTRAP_PLACEHOLDER_INCLUDES, Configuration::BOOTSTRAP_PLACEHOLDER_INCLUDES . "\n" . $include, $content);
-        file_put_contents($bootstrapFile, $content);
+        $this->enrichFile($bootstrapFile, [Configuration::BOOTSTRAP_PLACEHOLDER_INCLUDES => Configuration::BOOTSTRAP_PLACEHOLDER_INCLUDES . "\n" . $include], '');
     }
 
     private function getMenuFunctionName(): string

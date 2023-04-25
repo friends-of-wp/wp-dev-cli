@@ -4,7 +4,7 @@ namespace FriendsOfWp\DeveloperCli\Util;
 
 use Symfony\Component\Yaml\Yaml;
 
-class ConfigFileLoader
+abstract class ConfigFileLoader
 {
     /**
      * Load a configuration YAML file. A default YAML file can be added that will be merged

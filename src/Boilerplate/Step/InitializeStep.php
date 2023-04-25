@@ -50,7 +50,7 @@ class InitializeStep extends SimpleStep
             $validPluginName = $this->isValidPluginName($pluginName);
 
             if (!$validPluginName) {
-                $this->warning('The given plugin name "' . $pluginName . '" it not valid. It has to have at least three characters.');
+                $this->writeWarning('The given plugin name "' . $pluginName . '" it not valid. It has to have at least three characters.');
             }
         }
 

@@ -41,16 +41,23 @@ abstract class SimpleStep implements Step
     {
         $answer = $this->askQuestion(new Question($messageWithQuestionmark . '(yes/no)? '), $identifier);
 
+
         if (!$answer) {
-            return true;
+            $result = true;
+        } else {
+            $answer = strtolower($answer);
+            if ($answer === 'n' || $answer === "no") {
+                $result = false;
+            } else {
+                $result = true;
+            }
         }
 
-        $answer = strtolower($answer);
-        if ($answer === 'n' || $answer === "no") {
-            return false;
-        } else {
-            return true;
+        if ($identifier) {
+            $this->getConfiguration()->setParameter($identifier, $result);
         }
+
+        return $result;
     }
 
     /**
@@ -64,7 +71,7 @@ abstract class SimpleStep implements Step
     /**
      * This function writes a standardized warning to the command line.
      */
-    protected function warning(string $message)
+    protected function writeWarning(string $message)
     {
         $output = $this->getOutput();
         $output->writeln('');
@@ -110,6 +117,11 @@ abstract class SimpleStep implements Step
         }
 
         file_put_contents($to, $content);
+    }
+
+    protected function enrichFile(string $file, array $enrichArray, $limiters = '##')
+    {
+        $this->enrichedCopy($file, $file, $enrichArray, $limiters);
     }
 
     protected function askQuestion(Question $question, string $identifier = null, $ignoreConfigurationParameter = false)
