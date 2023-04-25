@@ -48,14 +48,6 @@ class ReplacingPlaceholdersStep extends SimpleStep
         ];
 
         $filename = $configuration->getOutputDir() . '/' . $file;
-
-        $content = file_get_contents($filename);
-
-        foreach ($replacements as $key => $replacement) {
-            $search = self::LIMITERS . $key . self::LIMITERS;
-            $content = str_replace($search, $replacement, $content);
-        }
-
-        file_put_contents($filename, $content);
+        $this->enrichFile($filename, $replacements, self::LIMITERS);
     }
 }

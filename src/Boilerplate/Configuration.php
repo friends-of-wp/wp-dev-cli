@@ -19,6 +19,7 @@ class Configuration
 
     private array $parameters = [];
 
+
     /**
      * @param string $pluginName
      */
@@ -108,6 +109,7 @@ class Configuration
         if (!$this->hasParameter($key)) {
             throw  new \RuntimeException('No parameter with key "' . $key . '" found');
         }
+
         return $this->parameters[$key];
     }
 
