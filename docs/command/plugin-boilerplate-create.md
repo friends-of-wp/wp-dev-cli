@@ -50,5 +50,7 @@ parameters:
 - Add author to plugin questions
 - Select license
 - Select menu images
-- Extend config file to prefill "questions" (like author).
+- Extend config file to prefill as default "questions" (like license).
+- Create config file from actual question answers (to reuse in the next run)
+- Ask for license
 
