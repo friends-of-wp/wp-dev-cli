@@ -7,7 +7,7 @@
         }
     },
     "require": {
-        "friends-of-wp/wp-dev-cli-ext-boilerplate": "dev-main",
+        "friends-of-wp/wp-dev-cli-ext-boilerplate": "dev-develop",
         "friends-of-wp/pluginretriever": "^1.2",
         "symfony/console": "^6.2",
         "symfony/yaml": "^6.2"
