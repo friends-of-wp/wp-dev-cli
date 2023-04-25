@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use FriendsOfWp\DeveloperCli\Command\Plugin\BoilerplateCreateCommand;
+use FriendsOfWp\BoilerplateDevCliExtension\Command\BoilerplateCreateCommand;
 use FriendsOfWp\DeveloperCli\Command\WordPress\Directory\ExportCommand;
 use Symfony\Component\Console\Application;
 

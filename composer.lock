@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b0557ee1dfd7e174bfe6775670aaf993",
+    "content-hash": "795727251ac2556d69596edb90761d67",
     "packages": [
         {
             "name": "friends-of-wp/pluginretriever",
@@ -36,6 +36,34 @@
                 "source": "https://github.com/friends-of-wp/wp-plugin-directory-exporter/tree/1.2.0"
             },
             "time": "2023-04-23T12:16:34+00:00"
+        },
+        {
+            "name": "friends-of-wp/wp-dev-cli-ext-boilerplate",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate.git",
+                "reference": "853a48a852f2060af4f8420fc2d9ed1a2c239c84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/friends-of-wp/wp-dev-cli-ext-boilerplate/zipball/853a48a852f2060af4f8420fc2d9ed1a2c239c84",
+                "reference": "853a48a852f2060af4f8420fc2d9ed1a2c239c84",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FriendsOfWp\\BoilerplateDevCliExtension\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "support": {
+                "issues": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate/issues",
+                "source": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate/tree/main"
+            },
+            "time": "2023-04-25T08:58:36+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1363,9 +1391,11 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
-    "prefer-stable": false,
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "friends-of-wp/wp-dev-cli-ext-boilerplate": 20
+    },
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
