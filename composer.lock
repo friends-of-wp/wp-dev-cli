@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90fe48e3543791eea6c1e6fa570f75b4",
+    "content-hash": "aa0914b89e9c219878191182ac3d6f28",
     "packages": [
         {
             "name": "friends-of-wp/pluginretriever",
@@ -39,16 +39,16 @@
         },
         {
             "name": "friends-of-wp/wp-dev-cli-ext-boilerplate",
-            "version": "dev-main",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate.git",
-                "reference": "853a48a852f2060af4f8420fc2d9ed1a2c239c84"
+                "reference": "d4bebb627a1ec2144ba49e33838eba4acd0d7af8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/friends-of-wp/wp-dev-cli-ext-boilerplate/zipball/853a48a852f2060af4f8420fc2d9ed1a2c239c84",
-                "reference": "853a48a852f2060af4f8420fc2d9ed1a2c239c84",
+                "url": "https://api.github.com/repos/friends-of-wp/wp-dev-cli-ext-boilerplate/zipball/d4bebb627a1ec2144ba49e33838eba4acd0d7af8",
+                "reference": "d4bebb627a1ec2144ba49e33838eba4acd0d7af8",
                 "shasum": ""
             },
             "default-branch": true,
@@ -59,11 +59,12 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "description": "WP DevCli Extension that takes care of plugin boilerplate creation.",
             "support": {
                 "issues": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate/issues",
-                "source": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate/tree/main"
+                "source": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate/tree/develop"
             },
-            "time": "2023-04-25T08:58:36+00:00"
+            "time": "2023-04-25T11:40:57+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
