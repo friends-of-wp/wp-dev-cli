@@ -6,5 +6,10 @@
     "readme.md",
     ".github",
     "readme.md"
+  ],
+  "finder": [
+    {
+      "in": "."
+    }
   ]
 }
