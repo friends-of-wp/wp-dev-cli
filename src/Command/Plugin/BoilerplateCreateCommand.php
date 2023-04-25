@@ -5,12 +5,12 @@ namespace FriendsOfWp\DeveloperCli\Command\Plugin;
 use FriendsOfWp\DeveloperCli\Boilerplate\Configuration;
 use FriendsOfWp\DeveloperCli\Boilerplate\Step\Exception\UnableToCreateException;
 use FriendsOfWp\DeveloperCli\Command\Command;
+use FriendsOfWp\DeveloperCli\Util\ConfigFileLoader;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Yaml\Yaml;
 use FriendsOfWp\DeveloperCli\Boilerplate\Step\Step;
 
 class BoilerplateCreateCommand extends Command
@@ -39,7 +39,7 @@ class BoilerplateCreateCommand extends Command
 
         $this->initSteps($input->getOption('configFile'), $config, $input, $output);
 
-        $this->writeWarning($output);
+        // $this->writeWarning($output);
 
         $this->ask($output);
 
@@ -79,16 +79,7 @@ class BoilerplateCreateCommand extends Command
     {
         $questionHelper = $this->getHelper('question');
 
-        $defaultConfigFile = __DIR__ . '/../../../config/boilerplate/default.yml';
-        $defaultConfig = Yaml::parse(file_get_contents($defaultConfigFile));
-
-        if ($configFile) {
-            $customConfig = Yaml::parse(file_get_contents($configFile));
-        } else {
-            $customConfig = [];
-        }
-
-        $config = array_merge($customConfig, $defaultConfig);
+        $config = ConfigFileLoader::loadYamlConfig($configFile, __DIR__ . '/../../../config/boilerplate/default.yml');
 
         if (array_key_exists('parameters', $config)) {
             foreach ($config['parameters'] as $key => $value) {
