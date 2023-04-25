@@ -43,12 +43,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate.git",
-                "reference": "d4bebb627a1ec2144ba49e33838eba4acd0d7af8"
+                "reference": "c2f93ca11b29c337087d5849da85c00dcdd72ca7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/friends-of-wp/wp-dev-cli-ext-boilerplate/zipball/d4bebb627a1ec2144ba49e33838eba4acd0d7af8",
-                "reference": "d4bebb627a1ec2144ba49e33838eba4acd0d7af8",
+                "url": "https://api.github.com/repos/friends-of-wp/wp-dev-cli-ext-boilerplate/zipball/c2f93ca11b29c337087d5849da85c00dcdd72ca7",
+                "reference": "c2f93ca11b29c337087d5849da85c00dcdd72ca7",
                 "shasum": ""
             },
             "default-branch": true,
@@ -64,7 +64,7 @@
                 "issues": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate/issues",
                 "source": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate/tree/develop"
             },
-            "time": "2023-04-25T11:40:57+00:00"
+            "time": "2023-04-25T13:55:20+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
