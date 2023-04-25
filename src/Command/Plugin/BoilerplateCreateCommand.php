@@ -36,7 +36,7 @@ class BoilerplateCreateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        OutputHelper::writeInfoBox($output, "This command creates a plugin boiler plate. Please answer some questions to individualize it.");
+        OutputHelper::writeInfoBox($output, "This command creates a plugin boilerplate. Please answer some questions to individualize it.");
 
         $config = new Configuration();
 
