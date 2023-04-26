@@ -4,6 +4,12 @@
 
 This command line tool helps WordPress developers with their daily work. It is maintained by the [Friends of WP](https://www.friendsofwp.com) and published unter the MIT license.
 
+## Why not using the official WordPress CLI?
+
+There is already a perfect [WordPress CLI](https://wp-cli.org/) out there. So why did we decide to implement one on our own? The classic CLI is build to manage your installed WordPress without using a browser. It helps with the daily work. 
+
+Our new CLI is built for developers. It provides all needed tools to create plugins, themes and other elements. So the dev cli is used before the go live and the classic one afterwards.
+
 ## Usage
 
 Download the latest version of our PHAR archive and give it afterwards rights to be executed.
