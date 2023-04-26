@@ -1,4 +1,9 @@
 commands:
+
+  # Friends of WP - check if a given WordPress version is secure
+  # wordpress:security:version
+  - FriendsOfWp\DeveloperCli\Command\Extensions\ListCommand
+
   # Friends of WP - Create an OOP plugin boilerplate with all dependencies.
   # plugin:boilerplate:create
   - \FriendsOfWp\BoilerplateDevCliExtension\Command\BoilerplateCreateCommand
