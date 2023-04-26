@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2fad600053efa594bd1552355b9091e0",
+    "content-hash": "c45554a4d0fa73c36b517b0535899d69",
     "packages": [
         {
             "name": "friends-of-wp/pluginretriever",
@@ -67,17 +67,46 @@
             "time": "2023-04-25T13:56:36+00:00"
         },
         {
+            "name": "friends-of-wp/wp-dev-cli-ext-security",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/friends-of-wp/wp-dev-cli-ext-security.git",
+                "reference": "7b63505586157b1bb3dc64600e424a7e268596a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/friends-of-wp/wp-dev-cli-ext-security/zipball/7b63505586157b1bb3dc64600e424a7e268596a9",
+                "reference": "7b63505586157b1bb3dc64600e424a7e268596a9",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FriendsOfWp\\VersionSecurityDevCliExtension\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "WP DevCli Extension that shows security information.",
+            "support": {
+                "issues": "https://github.com/friends-of-wp/wp-dev-cli-ext-security/issues",
+                "source": "https://github.com/friends-of-wp/wp-dev-cli-ext-security/tree/develop"
+            },
+            "time": "2023-04-26T08:22:05+00:00"
+        },
+        {
             "name": "friends-of-wp/wp-dev-cli-ext-statistics",
             "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/friends-of-wp/wp-dev-cli-ext-statistics.git",
-                "reference": "60455ec219c22b7b4dbe5c99327592192000d67d"
+                "reference": "b90a2f5d7f0216d4ad1b2fecc5b7909d97b3e030"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/friends-of-wp/wp-dev-cli-ext-statistics/zipball/60455ec219c22b7b4dbe5c99327592192000d67d",
-                "reference": "60455ec219c22b7b4dbe5c99327592192000d67d",
+                "url": "https://api.github.com/repos/friends-of-wp/wp-dev-cli-ext-statistics/zipball/b90a2f5d7f0216d4ad1b2fecc5b7909d97b3e030",
+                "reference": "b90a2f5d7f0216d4ad1b2fecc5b7909d97b3e030",
                 "shasum": ""
             },
             "require": {
@@ -96,7 +125,7 @@
                 "issues": "https://github.com/friends-of-wp/wp-dev-cli-ext-statistics/issues",
                 "source": "https://github.com/friends-of-wp/wp-dev-cli-ext-statistics/tree/develop"
             },
-            "time": "2023-04-25T19:13:07+00:00"
+            "time": "2023-04-25T19:27:40+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1427,7 +1456,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "friends-of-wp/wp-dev-cli-ext-boilerplate": 20,
-        "friends-of-wp/wp-dev-cli-ext-statistics": 20
+        "friends-of-wp/wp-dev-cli-ext-statistics": 20,
+        "friends-of-wp/wp-dev-cli-ext-security": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

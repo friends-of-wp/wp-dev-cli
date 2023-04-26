@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Command extends SymfonyCommand
 {
-    protected function writeWarning(OutputInterface $output, string $message): void
+    protected function writeWarning(OutputInterface $output, string|array $message): void
     {
         OutputHelper::writeErrorBox($output, $message);
     }

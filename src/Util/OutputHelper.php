@@ -20,15 +20,34 @@ abstract class OutputHelper
     /**
      * Show a red output box with a warning message.
      */
-    static public function writeErrorBox(OutputInterface $output, string $message): void
+    static public function writeErrorBox(OutputInterface $output, string|array $message): void
     {
-        $spaces = self::getSpaces($message);
+        $maxLength = 0;
+
+        if (!is_array($message)) {
+            $message = [$message];
+        }
+
+        foreach ($message as $singleMessage) {
+            $maxLength = max($maxLength, strlen($singleMessage));
+        }
+
+        $spaces = self::getSpaces($message[0]);
 
         $output->writeln("");
-        $output->writeln('<error>' . $spaces . "</error>");
-        $output->writeln("<error>  " . $message . "  </error>");
+        $output->writeln('<error>' . self::getPreparedMessage('', $maxLength, 4) . "</error>");
+
+        foreach ($message as $singleMessage) {
+            $output->writeln("<error>  " . self::getPreparedMessage($singleMessage, $maxLength, 2) . "</error>");
+        }
+
         $output->writeln('<error>' . $spaces . "</error>");
         $output->writeln("");
+    }
+
+    static private function getPreparedMessage(string $message, int $maxLength, $additionalSpaces = 0): string
+    {
+        return $message . str_repeat(' ', $maxLength - strlen($message) + $additionalSpaces);
     }
 
     /**

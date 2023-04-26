@@ -22,3 +22,7 @@ commands:
   # Friends of WP - how statistics for the MySQL version share in the WordPress universe
   # wordpress:statistics:locale
   - FriendsOfWp\WordPressStatsDevCliExtension\Command\LocaleStatisticsCommand
+
+  # Friends of WP - check if a given WordPress version is secure
+  # wordpress:security:version
+  - FriendsOfWp\VersionSecurityDevCliExtension\Command\VersionSecurityCommand

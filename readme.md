@@ -29,6 +29,9 @@ Now you are ready to use our WordPress CLI for Developers.
 - **`wordpress:directory:export`** - This command exports the information for all plugins from the wordpress.org plugin directory into a CSV file. 
 
 
+- **`wordpress:security:version`** - This command returns security information about the given WordPress version. If it is unsecure it will return the closest secure version. [More information](https://github.com/friends-of-wp/wp-dev-cli-ext-security).
+
+
 - **`plugin:boilerplate:create`** - This function creates a new plugin boilerplate with all needed dependency. Additional steps can easily be defined. [More information](https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate).
 
 
@@ -52,3 +55,4 @@ This CLI tool will always be work in progress. We have a lot of ideas that can b
 - Add "how to create a new release"
 - Auto-update the phar file
 - Add a "verbose mode"
+    
