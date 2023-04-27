@@ -10,7 +10,7 @@ There is already a perfect [WordPress CLI](https://wp-cli.org/) out there. So wh
 
 Our new WP DEV CLI is built for developers. It provides all needed tools to create plugins, themes and other elements. So this CLI is used before the go live and the WP CLI afterwards. 
 
-Being not the tool running on the server has one big advantage. We do not have to support old PHP versions ([> 74 % of all WordPress installations use PHP 7.4 and lower](https://github.com/friends-of-wp/wp-dev-cli-ext-security)). That means the DEV CLI can use all features PHP 8 has in store. 
+Being not the tool running on the server has one big advantage. We do not have to support old PHP versions ([> 74 % of all WordPress installations use PHP 7.4 and lower](https://github.com/friends-of-wp/wp-dev-cli-ext-statistics)). That means the DEV CLI can use all features PHP 8 has in store. 
 
 ## Usage
 
