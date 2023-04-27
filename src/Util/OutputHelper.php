@@ -6,6 +6,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 abstract class OutputHelper
 {
+    /**
+     * Show a blue output box with a info message.
+     */
     static public function writeInfoBox(OutputInterface $output, string $message): void
     {
         $spaces = self::getSpaces($message);
@@ -45,6 +48,9 @@ abstract class OutputHelper
         $output->writeln("");
     }
 
+    /**
+     * Add whitespaces to the message of needed to fit to the box.
+     */
     static private function getPreparedMessage(string $message, int $maxLength, $additionalSpaces = 0): string
     {
         return $message . str_repeat(' ', $maxLength - strlen($message) + $additionalSpaces);
@@ -53,8 +59,8 @@ abstract class OutputHelper
     /**
      * Fill out the spaces in the trailing empty lines in the box.
      */
-    static private function getSpaces(string $message, int $additionalSpaces = 4): string
+    static private function getSpaces(string $message): string
     {
-        return str_repeat(' ', strlen($message) + $additionalSpaces);
+        return str_repeat(' ', strlen($message) + 4);
     }
 }
