@@ -6,9 +6,11 @@ This command line tool helps WordPress developers with their daily work. It is m
 
 ## Why not using the official WordPress CLI?
 
-There is already a perfect [WordPress CLI](https://wp-cli.org/) out there. So why did we decide to implement one on our own? The classic CLI is build to manage your installed WordPress without using a browser. It helps with the daily work. 
+There is already a perfect [WordPress CLI](https://wp-cli.org/) out there. So why did we decide to implement one on our own? The WP CLI is build to manage your installed WordPress without using a browser. It helps with the daily work. 
 
-Our new CLI is built for developers. It provides all needed tools to create plugins, themes and other elements. So the dev cli is used before the go live and the classic one afterwards.
+Our new WP DEV CLI is built for developers. It provides all needed tools to create plugins, themes and other elements. So this CLI is used before the go live and the WP CLI afterwards. 
+
+Being not the tool running on the server has one big advantage. We do not have to support old PHP versions. That means the dev cli can use all features PHP 8 has in store.
 
 ## Usage
 
