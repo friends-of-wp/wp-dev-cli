@@ -2,3 +2,4 @@ parameters:
   core_plugin_name: "Acme Security"
   core_plugin_description: "This is the description for the Acme Studios Security plugin."
   core_plugin_version: "1.0.0"
+  core_plugin_license: MIT
