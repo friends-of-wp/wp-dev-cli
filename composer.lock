@@ -43,12 +43,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate.git",
-                "reference": "9285c3beea982f8204e2b53615587b15276ff12b"
+                "reference": "905ec1f5ed9b5004e0afba9d950cd9632fd9cc8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/friends-of-wp/wp-dev-cli-ext-boilerplate/zipball/9285c3beea982f8204e2b53615587b15276ff12b",
-                "reference": "9285c3beea982f8204e2b53615587b15276ff12b",
+                "url": "https://api.github.com/repos/friends-of-wp/wp-dev-cli-ext-boilerplate/zipball/905ec1f5ed9b5004e0afba9d950cd9632fd9cc8f",
+                "reference": "905ec1f5ed9b5004e0afba9d950cd9632fd9cc8f",
                 "shasum": ""
             },
             "default-branch": true,
@@ -64,7 +64,7 @@
                 "issues": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate/issues",
                 "source": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate/tree/develop"
             },
-            "time": "2023-04-25T13:56:36+00:00"
+            "time": "2023-04-27T05:54:51+00:00"
         },
         {
             "name": "friends-of-wp/wp-dev-cli-ext-security",
