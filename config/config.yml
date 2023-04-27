@@ -26,3 +26,9 @@ commands:
   # Friends of WP - check if a given WordPress version is secure
   # wordpress:security:version
   - FriendsOfWp\VersionSecurityDevCliExtension\Command\VersionSecurityCommand
+
+  # Friends of WP - Create an OOP plugin boilerplate with all dependencies.
+  # gist:commands:list
+  - \FriendsOfWp\GistDevCliExtension\Command\ListCommand
+  - \FriendsOfWp\GistDevCliExtension\Command\RunCommand
+  - \FriendsOfWp\GistDevCliExtension\Command\ShowCommand

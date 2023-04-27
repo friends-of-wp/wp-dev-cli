@@ -4,7 +4,8 @@
     "preferred-install": {
       "friends-of-wp/wp-dev-cli-ext-boilerplate": "source",
       "friends-of-wp/wp-dev-cli-ext-statistics": "source",
-      "friends-of-wp/wp-dev-cli-ext-security": "source"
+      "friends-of-wp/wp-dev-cli-ext-security": "source",
+      "friends-of-wp/wp-dev-cli-ext-gist": "source"
     }
   },
   "autoload": {
@@ -16,6 +17,7 @@
     "friends-of-wp/wp-dev-cli-ext-boilerplate": "dev-develop",
     "friends-of-wp/wp-dev-cli-ext-statistics": "dev-develop",
     "friends-of-wp/wp-dev-cli-ext-security": "dev-develop",
+    "friends-of-wp/wp-dev-cli-ext-gist": "dev-develop",
 
     "friends-of-wp/pluginretriever": "^1.2",
     "symfony/console": "^6.2",

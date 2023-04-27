@@ -9,13 +9,27 @@ abstract class OutputHelper
     /**
      * Show a blue output box with a info message.
      */
-    static public function writeInfoBox(OutputInterface $output, string $message): void
+    static public function writeInfoBox(OutputInterface $output, string|array $message): void
     {
-        $spaces = self::getSpaces($message);
+        $maxLength = 0;
+
+        if (!is_array($message)) {
+            $message = [$message];
+        }
+
+        foreach ($message as $singleMessage) {
+            $maxLength = max($maxLength, strlen($singleMessage));
+        }
+
+        $spaces = self::getSpaces($message[0]);
 
         $output->writeln("");
-        $output->writeln('<bg=cyan>' . $spaces . "</>");
-        $output->writeln("<bg=cyan>  " . $message . "  </>");
+        $output->writeln('<bg=cyan>' . self::getPreparedMessage('', $maxLength, 4) . "</>");
+
+        foreach ($message as $singleMessage) {
+            $output->writeln("<bg=cyan>  " . self::getPreparedMessage($singleMessage, $maxLength, 2) . "</>");
+        }
+
         $output->writeln('<bg=cyan>' . $spaces . "</>");
         $output->writeln("");
     }

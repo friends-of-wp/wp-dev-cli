@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c45554a4d0fa73c36b517b0535899d69",
+    "content-hash": "61454e0bf53a34839b90600f7af6575b",
     "packages": [
         {
             "name": "friends-of-wp/pluginretriever",
@@ -65,6 +65,35 @@
                 "source": "https://github.com/friends-of-wp/wp-dev-cli-ext-boilerplate/tree/develop"
             },
             "time": "2023-04-27T05:54:51+00:00"
+        },
+        {
+            "name": "friends-of-wp/wp-dev-cli-ext-gist",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/friends-of-wp/wp-dev-cli-ext-commands-gist.git",
+                "reference": "1e80e762d4a57d2854fa497ca15f2dde42ab2d02"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/friends-of-wp/wp-dev-cli-ext-commands-gist/zipball/1e80e762d4a57d2854fa497ca15f2dde42ab2d02",
+                "reference": "1e80e762d4a57d2854fa497ca15f2dde42ab2d02",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FriendsOfWp\\GistDevCliExtension\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "WP DevCli Extension that connects to gist and allows to run commands.",
+            "support": {
+                "issues": "https://github.com/friends-of-wp/wp-dev-cli-ext-commands-gist/issues",
+                "source": "https://github.com/friends-of-wp/wp-dev-cli-ext-commands-gist/tree/develop"
+            },
+            "time": "2023-04-27T12:20:22+00:00"
         },
         {
             "name": "friends-of-wp/wp-dev-cli-ext-security",
@@ -1457,7 +1486,8 @@
     "stability-flags": {
         "friends-of-wp/wp-dev-cli-ext-boilerplate": 20,
         "friends-of-wp/wp-dev-cli-ext-statistics": 20,
-        "friends-of-wp/wp-dev-cli-ext-security": 20
+        "friends-of-wp/wp-dev-cli-ext-security": 20,
+        "friends-of-wp/wp-dev-cli-ext-gist": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
