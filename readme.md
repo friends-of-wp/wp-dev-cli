@@ -12,6 +12,10 @@ Our new WP DEV CLI is built for developers. It provides all needed tools to crea
 
 Being not the tool running on the server has one big advantage. We do not have to support old PHP versions ([> 74 % of all WordPress installations use PHP 7.4 and lower](https://github.com/friends-of-wp/wp-dev-cli-ext-statistics)). That means the DEV CLI can use all features PHP 8 has in store. 
 
+## Be part of the project
+
+- [How to create Commands](docs/command-create.md)
+
 ## Usage
 
 Download the latest version of our PHAR archive and give it afterwards rights to be executed.
