@@ -54,6 +54,9 @@ Now you are ready to use our WordPress CLI for Developers.
 
 - **`wordpress:statistics:locale`** - Shows the current usage of the different locales that are available in WordPress. [More information](https://github.com/friends-of-wp/wp-dev-cli-ext-statistics).
 
+
+- **`commands:*`** - list, show and run predefined commands. This list comes from a Gist repository and will be enriched without you having to update this client. [More information](https://github.com/friends-of-wp/wp-dev-cli-ext-commands-gist)
+
 ## Ideas
 
 This CLI tool will always be work in progress. We have a lot of ideas that can be implemented. But it's open source ... feel free to add your own functionality.
