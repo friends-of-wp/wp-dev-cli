@@ -14,3 +14,20 @@ If you want to know more about this you should have a look at the [`commands:gis
 
 ## Complex Commands
 
+To create complex commands, must be able to program. Our commands are simple [Symfony Console](https://symfony.com/doc/current/components/console.html) commands that need to be registered. 
+
+Because the manual of the console component of Symfony is already so good, we just want to link it here.
+
+- [The Console Component](https://symfony.com/doc/current/components/console.html)
+
+### How register a complex command
+
+Registering own command can only be done at the moment when the project was installed as source code. 
+
+```shell
+git clone git@github.com:friends-of-wp/wp-dev-cli.git
+```
+
+Afterwards you can just add your commands to the [config file](https://github.com/friends-of-wp/wp-dev-cli/blob/develop/config/config.yml). 
+
+Of course we have a ticket in our backlog to make it easier to use custom plugins with the phar installation.
